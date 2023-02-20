@@ -1,14 +1,14 @@
 import { createStore } from 'vuex'
 
 export default createStore({
-  state: {
+  state: { // 存数据
   },
-  getters: {
+  getters: { // 对 store 数据进行加工处理， 形成新数据
   },
-  mutations: {
+  mutations: { // 变更 store的数据
   },
-  actions: {
+  actions: { // 异步操作， 触发 mutation，变更 store数据
   },
-  modules: {
+  modules: { // 模块化
   }
 })
