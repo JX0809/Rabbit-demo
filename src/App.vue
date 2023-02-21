@@ -1,5 +1,6 @@
 <template>
   <div>
-    <h2>APP 组件</h2>
+    <!-- 一级路由占位符 -->
+    <router-view></router-view>
   </div>
 </template>
