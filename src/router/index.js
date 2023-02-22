@@ -2,9 +2,17 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 // 导入组件
 const Layout = () => import('@/views/Layout.vue')
+// 二级路由
+const Home = () => import('@/views/Home/Home.vue')
 
 const routes = [
-  { path: '/', component: Layout }
+  {
+    path: '/',
+    component: Layout,
+    children: [
+      { path: '/', component: Home }
+    ]
+  }
 ]
 
 // 创建 路由 实例

@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// 导入初始化样式
+import 'normalize.css'
+import '@/assets/styles/common.less'
+
 // 导入全局样式
 import '@/assets/styles/mixin.less'
 import '@/assets/styles/variable.less'

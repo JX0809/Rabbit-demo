@@ -1,10 +1,12 @@
 import axios from 'axios'
-import store from '@/store/index'
-import router from '@/router/index'
+import store from '../store/index'
+import router from '../router/index'
 
 // 设置请求 根路径
+// 避免有请求不需要经过 axios
+const baseUrl = 'http://pcapi-xiaotuxian-front-devtest.itheima.net'
 const instance = axios.create({
-  baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
+  baseURL: baseUrl,
   timeout: 5000
 })
 
@@ -39,3 +41,12 @@ instance.interceptors.response.use(
   })
 
 export default instance
+
+// // 导出 请求工具函数
+// export default (url, method, submitData) => {
+//   return instance({
+//     url,
+//     method,
+//     [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
+//   })
+// }
