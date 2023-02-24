@@ -1,8 +1,14 @@
 <template>
   <div class="nav_top_container">
     <ul>
-      <li><a href="#">请先登录</a></li>
-      <li><a href="">免费注册</a></li>
+      <template v-if="$store.state.user.profile.token">
+        <li><a href="#">用户名</a></li>
+        <li><a href="">退出登录</a></li>
+      </template>
+      <template v-else>
+        <li><a href="#">请先登录</a></li>
+        <li><a href="">免费注册</a></li>
+      </template>
       <li><a href="">我的订单</a></li>
       <li><a href="">会员中心</a></li>
       <li><a href="">帮助中心</a></li>
@@ -43,6 +49,11 @@ ul {
         font-size: 14px;
       }
     }
+    a:hover {
+      color: @xtxColor;
+      cursor: pointer;
+    }
+
     ~ li {
       a {
         border-left: 2px solid #666;

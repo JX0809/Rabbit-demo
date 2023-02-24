@@ -1,26 +1,44 @@
 <template>
+  <!-- 吸顶头部 -->
+  <ProjectHeaderSticky></ProjectHeaderSticky>
+
   <!-- 顶部通栏 -->
   <NavTop></NavTop>
 
-  <br />
-  <hr />
   <!-- 头部 -->
-  <header>头部</header>
+  <ProjectHeader></ProjectHeader>
+
   <!-- 主体 -->
   <div class="main">
     <!-- 二级路由占位符 -->
     <router-view></router-view>
   </div>
+
   <!-- 底部 -->
-  <footer>底部</footer>
+  <ProjectFooter></ProjectFooter>
 </template>
 
 <script>
+// 导入store
+import { useStore } from 'vuex'
+
+// 导入组件
 import NavTop from '@/components/NavTop.vue'
+import ProjectHeader from '@/components/Header/ProjectHeader.vue'
+import ProjectFooter from '@/components/ProjectFooter.vue'
+import ProjectHeaderSticky from '@/components/Header/ProjectHeaderSticky.vue'
+
 export default {
   name: 'Layout',
   components: {
-    NavTop
+    NavTop,
+    ProjectHeader,
+    ProjectFooter,
+    ProjectHeaderSticky
+  },
+  setup() {
+    const store = useStore()
+    store.dispatch('category/getCategoryList')
   }
 }
 </script>

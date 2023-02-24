@@ -27,9 +27,12 @@ instance.interceptors.request.use(
 // 响应拦截器更新token
 instance.interceptors.response.use(
   response => {
-    return response.data
+    // return response : 返回Promise包裹的数据， data才是真实的数据
+    return response
+    // 返回真实的data， 不用再去解构
+    // return response.data
   }, error => {
-    // 响应结果出错的操作
+    // token过期，响应结果出错的操作
     if (error.response && error.response.status === 401) {
       // 清除用户信息
       store.commit('user/clearState')
@@ -39,14 +42,23 @@ instance.interceptors.response.use(
     }
     return Promise.reject(error)
   })
-
+// 1. 直接导出instance 实例
 export default instance
+// 使用
+// export const getAllCategoryListAPI = () => {
+//   return instance.get('/home/category/head')
+// }
 
-// // 导出 请求工具函数
+// //2.  导出 请求工具函数的写法
 // export default (url, method, submitData) => {
 //   return instance({
 //     url,
 //     method,
 //     [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
 //   })
+// }
+// 使用
+// export default request
+// export const xxx = () => {
+//   return request('url', 'get', 'data')
 // }

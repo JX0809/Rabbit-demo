@@ -4,13 +4,18 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const Layout = () => import('@/views/Layout.vue')
 // 二级路由
 const Home = () => import('@/views/Home/Home.vue')
+const MainCategory = () => import('@/views/Category/MainCategory.vue')
+const SubCategory = () => import('@/views/Category/SubCategory.vue')
 
 const routes = [
   {
     path: '/',
     component: Layout,
     children: [
-      { path: '/', component: Home }
+      { path: '/', component: Home },
+      { path: '/category/:id', component: MainCategory },
+      { path: '/category/sub/:id', component: SubCategory }
+
     ]
   }
 ]
