@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import HeaderNav from '@/components/Header/ProjectHeaderNav.vue'
+import HeaderNav from '@/components/ProjectHeader/ProjectHeaderNav.vue'
 // import { onMounted, ref } from '@vue/runtime-core'
 // 导入吸顶API
 import { useWindowScroll } from '@vueuse/core'

@@ -9,7 +9,7 @@
   <ProjectHeader></ProjectHeader>
 
   <!-- 主体 -->
-  <div class="main">
+  <div class="project_body">
     <!-- 二级路由占位符 -->
     <router-view></router-view>
   </div>
@@ -24,9 +24,9 @@ import { useStore } from 'vuex'
 
 // 导入组件
 import NavTop from '@/components/NavTop.vue'
-import ProjectHeader from '@/components/Header/ProjectHeader.vue'
+import ProjectHeader from '@/components/ProjectHeader/ProjectHeader.vue'
 import ProjectFooter from '@/components/ProjectFooter.vue'
-import ProjectHeaderSticky from '@/components/Header/ProjectHeaderSticky.vue'
+import ProjectHeaderSticky from '@/components/ProjectHeader/ProjectHeaderSticky.vue'
 
 export default {
   name: 'Layout',

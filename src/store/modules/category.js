@@ -36,6 +36,7 @@ export default {
     async getCategoryList(context) {
       // const data = await getAllCategoryListAPI()
       const { data: res } = await getAllCategoryListAPI()
+      // console.log(res)
       res.result.forEach(item => {
         // 给获取的每一条数据添加open 属性, 控制二级分类的显示隐藏
         item.open = false

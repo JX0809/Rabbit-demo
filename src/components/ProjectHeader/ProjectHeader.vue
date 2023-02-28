@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import HeaderNav from '@/components/Header/ProjectHeaderNav.vue'
+import HeaderNav from '@/components/ProjectHeader/ProjectHeaderNav.vue'
 
 export default {
   name: 'ProjectHeader',
