@@ -57,8 +57,8 @@
               <img :src="item.picture" alt="" />
             </div>
             <div class="goods_info">
-              <p class="name">{{ item.name }}</p>
-              <p class="desc">{{ item.desc }}</p>
+              <p class="name ellipsis-2">{{ item.name }}</p>
+              <p class="desc ellipsis">{{ item.desc }}</p>
               <p class="price"><i>￥</i>{{ item.price }}</p>
             </div>
           </router-link>
@@ -133,8 +133,8 @@ export default {
       return homeCateList.value.find((item) => item.id === currentId.value)
     })
 
-    // 请求接口，获取品牌推荐数据: setup 不支持异步promise
-    homeBrandCateAPI().then((data) => {
+    // 请求接口，获取品牌推荐数据，长度9条: setup 不支持异步promise
+    homeBrandCateAPI(9).then((data) => {
       brand.brands = data.data.result
     })
 
@@ -149,16 +149,18 @@ export default {
 
 <style lang="less" scoped>
 .home_category_container {
-  margin: 0 auto;
-  width: 1240px;
-  height: 500px;
+  width: 100%px;
+  height: 100%;
   display: flex;
-  position: relative;
+  position: absolute;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.8);
 
   > ul {
     width: 250px;
     height: 500px;
     background-color: #333333;
+    opacity: 0.93;
 
     > li {
       width: 100%;
@@ -193,76 +195,82 @@ export default {
       opacity: 1;
     }
   }
-}
+  .home_layer {
+    // display: flex;
+    width: 990px;
+    height: 500px;
+    padding: 0 15px;
+    background: hsla(0, 0%, 100%, 0.8);
+    position: absolute;
+    top: 0px;
+    left: 250px;
+    display: none;
 
-.home_layer {
-  // display: flex;
-  width: 990px;
-  height: 500px;
-  padding: 0 15px;
-  // background: hsla(0, 0%, 100%, 0.8);
-  position: absolute;
-  top: 0px;
-  left: 250px;
-
-  > h4 {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 80px;
-    span {
-      font-size: 22px;
+    > h4 {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 80px;
+      span {
+        font-size: 22px;
+      }
     }
-  }
-  > ul {
-    width: 100%;
-    height: 418px;
-    display: flex;
-    flex-wrap: wrap;
-    > li {
-      width: 310px;
-      height: 120px;
-      margin-right: 8px;
-      margin-bottom: 15px;
-      border: 1px solid #eee;
-      background-color: #fff;
-      border-radius: 8px;
+    > ul {
+      width: 100%;
+      height: 418px;
+      display: flex;
+      flex-wrap: wrap;
+      > li {
+        width: 310px;
+        height: 120px;
+        margin-right: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        background-color: #fff;
+        border-radius: 8px;
 
-      a {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        align-items: center;
-        padding: 10px;
-        &:hover {
-          background: #e3f9f4;
-        }
-        .goods_img {
-          img {
-            width: 95px;
-            height: 95px;
+        a {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          align-items: center;
+          padding: 10px;
+          &:hover {
+            background: #e3f9f4;
           }
-        }
-        .goods_info {
-          padding-left: 10px;
-          line-height: 24px;
-          width: 190px;
-          .name {
-            font-size: 14px;
-            color: #666;
+          .goods_img {
+            img {
+              width: 95px;
+              height: 95px;
+            }
           }
-          .desc {
-            font-size: 12px;
-            color: #999;
-          }
-          .price {
-            font-size: 22px;
-            color: @priceColor;
-            i {
-              font-size: 16px;
+          .goods_info {
+            padding-left: 10px;
+            line-height: 24px;
+            width: 190px;
+            .name {
+              font-size: 14px;
+              color: #666;
+            }
+            .desc {
+              font-size: 12px;
+              color: #999;
+            }
+            .price {
+              font-size: 22px;
+              color: @priceColor;
+              i {
+                font-size: 16px;
+              }
             }
           }
         }
       }
+    }
+  }
+  // 鼠标经过最大的盒子， 弹层显示
+  &:hover {
+    .home_layer {
+      display: block;
     }
   }
 }

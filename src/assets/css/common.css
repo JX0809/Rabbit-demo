@@ -61,11 +61,15 @@ ul {
   margin: 0 auto;
   position: relative;
 }
+
+/* 不换行， 超出部分 ...代替 */
 .ellipsis {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+/* 超出部分换行显示 */
 .ellipsis-2 {
   word-break: break-all;
   text-overflow: ellipsis;

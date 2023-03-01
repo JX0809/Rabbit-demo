@@ -8,7 +8,7 @@
   <!-- 头部 -->
   <ProjectHeader></ProjectHeader>
 
-  <!-- 主体 -->
+  <!-- 主体 默认子路由 home首页-->
   <div class="project_body">
     <!-- 二级路由占位符 -->
     <router-view></router-view>
