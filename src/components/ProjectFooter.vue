@@ -91,6 +91,8 @@ export default {
 <style lang="less" scoped>
 .project_footer_container {
   width: 100%;
+  height: 658px;
+  padding-top: 20px;
   .contact {
     width: 100%;
     height: 290px;
