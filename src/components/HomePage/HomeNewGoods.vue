@@ -7,16 +7,23 @@
       </template>
 
       <!-- 主体内容 -->
-      <div class="goods_body">
-        <ul class="goods_list">
-          <li class="hoverShadow" v-for="item in goodsList" :key="item.id">
-            <router-link to="/">
-              <img :src="item.picture" alt="" />
-              <p class="goods_name ellipsis">{{ item.name }}</p>
-              <p class="goods_price">￥{{ item.price }}</p>
-            </router-link>
-          </li>
-        </ul>
+      <div class="goods_body" ref="lazyBox">
+        <!-- 添加动画效果： 动画样式定义在 common.less -->
+        <transition name="fade">
+          <ul class="goods_list" v-if="goodsList.length">
+            <li class="hoverShadow" v-for="item in goodsList" :key="item.id">
+              <router-link to="/">
+                <!-- <img :src="item.picture" alt="" /> -->
+                <!-- 图片懒加载 -->
+                <img v-lazyload="item.picture" alt="" />
+                <p class="goods_name ellipsis">{{ item.name }}</p>
+                <p class="goods_price">￥{{ item.price }}</p>
+              </router-link>
+            </li>
+          </ul>
+          <!-- 骨架效果 -->
+          <HomeSkeleton v-else></HomeSkeleton>
+        </transition>
       </div>
     </HomePanel>
   </div>
@@ -24,20 +31,31 @@
 
 <script>
 import HomePanel from '@/components/HomePage/HomePanel.vue'
+import HomeSkeleton from '@/components/HomePage/HomeSkeleton.vue'
 import { homeNewGoodsAPI } from '@/api/homeAPI/homeAPI'
 import { ref } from 'vue'
+import { useLazyLoadData } from '@/hook'
 
 export default {
   name: 'HomeNewGoods',
-  components: { HomePanel },
+  components: {
+    HomePanel,
+    HomeSkeleton
+  },
   setup() {
-    const goodsList = ref([])
-    homeNewGoodsAPI().then((data) => {
-      goodsList.value = data.data.result
-    })
+    // homeNewGoodsAPI().then((data) => {
+    //   goodsList.value = data.data.result
+    // })
+
+    // 懒加载
+    const lazyBox = ref(null)
+    // 传入API函数 和 被观察的元素
+    // 同时解构处 API 函数的返回值： 重命名为 goodsList
+    const { result } = useLazyLoadData(homeNewGoodsAPI, lazyBox)
 
     return {
-      goodsList
+      goodsList: result,
+      lazyBox
     }
   }
 }

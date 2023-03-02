@@ -1,5 +1,6 @@
 <template>
   <div class="home_banner_container">
+    <!-- 轮播图 -->
     <XtxCarousel :sliders="sliders" autoPlay></XtxCarousel>
   </div>
 </template>

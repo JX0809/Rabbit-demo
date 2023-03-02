@@ -61,15 +61,11 @@ ul {
   margin: 0 auto;
   position: relative;
 }
-
-/* 不换行， 超出部分 ...代替 */
 .ellipsis {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
-/* 超出部分换行显示 */
 .ellipsis-2 {
   word-break: break-all;
   text-overflow: ellipsis;
@@ -91,4 +87,13 @@ ul {
   height: 0;
   line-height: 0;
   clear: both;
+}
+.fade-leave-active {
+  position: absolute;
+  width: 100%;
+  transition: opacity 0.5s 0.2s;
+  z-index: 1;
+}
+.fade-leave-to {
+  opacity: 0;
 }

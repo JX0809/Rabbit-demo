@@ -6,16 +6,19 @@
       </template>
 
       <!-- 主体内容 -->
-      <div class="goods_body">
-        <ul class="goods_list">
+      <div class="goods_body" ref="lazyBox">
+        <ul class="goods_list" v-if="recommendList.length">
           <li class="hoverShadow" v-for="item in recommendList" :key="item.id">
             <router-link to="/">
-              <img :src="item.picture" alt="" />
+              <!-- <img :src="item.picture" alt="" /> -->
+              <img v-lazyload="item.picture" alt="" />
               <p class="goods_name">{{ item.title }}</p>
               <p class="goods_desc">{{ item.alt }}</p>
             </router-link>
           </li>
         </ul>
+
+        <HomeSkeleton v-else></HomeSkeleton>
       </div>
     </HomePanel>
   </div>
@@ -23,22 +26,29 @@
 
 <script>
 import HomePanel from '@/components/HomePage/HomePanel.vue'
+import HomeSkeleton from '@/components/HomePage/HomeSkeleton.vue'
 
 import { homeRecommendAPI } from '@/api/homeAPI/homeAPI'
 import { ref } from 'vue'
+import { useLazyLoadData } from '@/hook'
 
 export default {
   name: 'HomeRecommend',
   components: {
-    HomePanel
+    HomePanel,
+    HomeSkeleton
   },
   setup() {
-    const recommendList = ref([])
-    homeRecommendAPI().then((data) => {
-      recommendList.value = data.data.result
-    })
+    // const recommendList = ref([])
+    // homeRecommendAPI().then((data) => {
+    //   recommendList.value = data.data.result
+    // })
+
+    const lazyBox = ref(null)
+    const { result } = useLazyLoadData(homeRecommendAPI, lazyBox)
     return {
-      recommendList
+      recommendList: result,
+      lazyBox
     }
   }
 }

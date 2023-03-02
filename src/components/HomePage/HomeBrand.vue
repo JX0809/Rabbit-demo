@@ -21,21 +21,36 @@
       </template>
 
       <!-- 主体内容 -->
-      <div class="goods_body">
-        <ul
-          class="goods_list"
-          :style="{ transform: `translateX(${-index * 1240}px)` }"
-        >
-          <li
-            class="goods_item hoverShadow"
-            v-for="item in brandList"
-            :key="item.id"
+      <div class="goods_body" ref="lazyBox">
+        <transition name="fade">
+          <ul
+            class="goods_list"
+            :style="{ transform: `translateX(${-index * 1240}px)` }"
+            v-if="brandList.length"
           >
-            <router-link to="/">
-              <img :src="item.picture" alt="" />
-            </router-link>
-          </li>
-        </ul>
+            <li
+              class="goods_item hoverShadow"
+              v-for="item in brandList"
+              :key="item.id"
+            >
+              <router-link to="/">
+                <img :src="item.picture" alt="" />
+              </router-link>
+            </li>
+          </ul>
+
+          <!-- 骨架 -->
+          <div v-else class="skeleton">
+            <XtxSkeleton
+              v-for="i in 5"
+              :key="i"
+              width="240px"
+              height="305px"
+              animated
+            >
+            </XtxSkeleton>
+          </div>
+        </transition>
       </div>
     </HomePanel>
   </div>
@@ -46,6 +61,7 @@ import HomePanel from '@/components/HomePage/HomePanel.vue'
 
 import { homeBrandAPI } from '@/api/homeAPI/homeAPI'
 import { ref } from 'vue'
+import { useLazyLoadData } from '@/hook'
 
 export default {
   name: 'HomeRecommend',
@@ -53,10 +69,12 @@ export default {
     HomePanel
   },
   setup() {
-    const brandList = ref([])
-    homeBrandAPI().then((data) => {
-      brandList.value = data.data.result
-    })
+    // const brandList = ref([])
+    // homeBrandAPI().then((data) => {
+    //   brandList.value = data.data.result
+    // })
+    const lazyBox = ref(null)
+    const { result } = useLazyLoadData(() => homeBrandAPI(10), lazyBox)
 
     // 点击按钮切换图片
     const index = ref(0)
@@ -67,7 +85,8 @@ export default {
     }
 
     return {
-      brandList,
+      brandList: result,
+      lazyBox,
       toggle,
       index
     }
@@ -121,6 +140,14 @@ export default {
           height: 305px;
         }
       }
+    }
+  }
+
+  .skeleton {
+    width: 2500px;
+    overflow: hidden;
+    .xtx-skeleton {
+      margin-right: 10px;
     }
   }
 }

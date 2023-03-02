@@ -31,6 +31,20 @@
         <HomeBrand></HomeBrand>
       </div>
     </div>
+
+    <!-- 居家产品板块 -->
+    <div class="home_products_container">
+      <div class="container">
+        <HomeProducts></HomeProducts>
+      </div>
+    </div>
+
+    <!-- 最新专题 -->
+    <div class="home_special_container">
+      <div class="container">
+        <HomeSpecial></HomeSpecial>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,6 +54,8 @@ import HomeBanner from '@/components/HomePage/HomBanner.vue'
 import HomeNewGoods from '@/components/HomePage/HomeNewGoods.vue'
 import HomeRecommend from '@/components/HomePage/HomeRecommend.vue'
 import HomeBrand from '@/components/HomePage/HomeBrand.vue'
+import HomeProducts from '@/components/HomePage/HomeProducts.vue'
+import HomeSpecial from '@/components/HomePage/HomeSpecial.vue'
 
 export default {
   name: 'Home',
@@ -48,7 +64,9 @@ export default {
     HomeBanner,
     HomeNewGoods,
     HomeRecommend,
-    HomeBrand
+    HomeBrand,
+    HomeProducts,
+    HomeSpecial
   }
 }
 </script>
@@ -65,7 +83,7 @@ export default {
     width: 100%;
     height: 500px;
 
-    .container {
+    > .container {
       height: 100%;
       position: relative;
     }
@@ -75,7 +93,7 @@ export default {
     width: 100%;
     height: 541px;
     background-color: #fff;
-    .container {
+    > .container {
       height: 100%;
     }
   }
@@ -83,7 +101,23 @@ export default {
     width: 100%;
     height: 460px;
     background-color: #f5f5f5;
-    .container {
+    > .container {
+      height: 100%;
+    }
+  }
+  .home_products_container {
+    width: 100%;
+    background-color: #fff;
+    > .container {
+      height: 100%;
+    }
+  }
+
+  .home_special_container {
+    width: 100%;
+    height: 495px;
+    background-color: #f5f5f5;
+    > .container {
       height: 100%;
     }
   }
