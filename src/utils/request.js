@@ -58,7 +58,7 @@ export default instance
 //   })
 // }
 // 使用
-// export default request
+// import request from '@、xx/xxx'
 // export const xxx = () => {
 //   return request('url', 'get', 'data')
 // }

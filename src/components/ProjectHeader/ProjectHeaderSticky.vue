@@ -5,7 +5,7 @@
       <h1 class="logo">
         <router-link to="/"></router-link>
       </h1>
-      <HeaderNav></HeaderNav>
+      <ProjectHeaderNav></ProjectHeaderNav>
       <div class="right">
         <router-link to="/">品牌</router-link>
         <router-link to="/">专题</router-link>
@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import HeaderNav from '@/components/ProjectHeader/ProjectHeaderNav.vue'
+import ProjectHeaderNav from '@/components/ProjectHeader/ProjectHeaderNav.vue'
 // import { onMounted, ref } from '@vue/runtime-core'
 // 导入吸顶API
 import { useWindowScroll } from '@vueuse/core'
 
 export default {
-  name: 'ProjectHeader',
+  name: 'ProjectHeaderSticky',
   components: {
-    HeaderNav
+    ProjectHeaderNav
   },
   setup() {
     // 传统方式实现吸顶

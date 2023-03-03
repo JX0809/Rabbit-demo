@@ -33,7 +33,7 @@ import { computed } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 
 export default {
-  name: 'HeaderNav',
+  name: ' ProjectHeaderNav',
   setup() {
     const store = useStore()
 

@@ -9,6 +9,7 @@
   <ProjectHeader></ProjectHeader>
 
   <!-- 主体 默认子路由 home首页-->
+  <!-- 展示 首页， 一级分类， 二级分类，商品详情 -->
   <div class="project_body">
     <!-- 二级路由占位符 -->
     <router-view></router-view>
