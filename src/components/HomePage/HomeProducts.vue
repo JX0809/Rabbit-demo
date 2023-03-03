@@ -17,12 +17,13 @@
       </template>
 
       <!-- 面板主体 -->
-      <div class="goods_body">
+
+      <div class="goods_body" v-if="productList.length">
         <!-- 左侧图片 -->
         <div class="cover_img">
           <router-link to="/">
             <!-- <img :src="item.picture" alt="" /> -->
-            <img v-lazyload="item.picture" alt="" />
+            <img v-lazyLoad="item.picture" alt="" />
             <strong class="label">
               <span>{{ item.name }}馆</span>
               <span>{{ item.saleInfo }}</span>
@@ -32,6 +33,10 @@
 
         <!-- 右侧商品信息 -->
         <HomeProductsGoods :productList="item.goods"></HomeProductsGoods>
+      </div>
+      <!-- 骨架 -->
+      <div class="skeleton" v-else>
+        <XtxSkeleton width="1240px" height="610px" animated> </XtxSkeleton>
       </div>
     </HomePanel>
   </div>

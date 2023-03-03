@@ -41,10 +41,6 @@ export const homeProductsAPI = () => {
 }
 
 // 专题
-export const homeSpecialAPI = (val) => {
-  return instance.get('/home/special', {
-    params: {
-      limit: val
-    }
-  })
+export const homeSpecialAPI = () => {
+  return instance.get('/home/special')
 }

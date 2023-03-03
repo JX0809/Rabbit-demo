@@ -14,13 +14,14 @@ export default {
     App.component('XtxSkeleton', XtxSkeleton) // 骨架屏
     App.component('XtxCarousel', XtxCarousel) // 轮播图
     App.component('XtxMore', XtxMore)
+    // 自定义指令
     defineDirective(App)
   }
 }
 
 // 图片懒加载
 const defineDirective = (App) => {
-  App.directive('lazyload', {
+  App.directive('lazyLoad', {
     mounted(el, binding) {
       const observer = new IntersectionObserver(([{ isIntersecting }]) => {
         if (isIntersecting) {

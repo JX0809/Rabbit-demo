@@ -15,7 +15,7 @@
               <router-link to="/">
                 <!-- <img :src="item.picture" alt="" /> -->
                 <!-- 图片懒加载 -->
-                <img v-lazyload="item.picture" alt="" />
+                <img v-lazyLoad="item.picture" alt="" />
                 <p class="goods_name ellipsis">{{ item.name }}</p>
                 <p class="goods_price">￥{{ item.price }}</p>
               </router-link>

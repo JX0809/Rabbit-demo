@@ -1,5 +1,5 @@
 <template>
-  <div class="home_special_container" ref="lazyBox">
+  <div class="home_special_container">
     <HomePanel title="最新专题">
       <template v-slot:more>
         <XtxMore></XtxMore>
@@ -15,7 +15,7 @@
             >
               <router-link to="/">
                 <!-- <img :src="item.cover" alt="" /> -->
-                <img v-lazyload="item.cover" alt="" />
+                <img v-lazyLoad="item.cover" alt="" />
                 <div class="meta">
                   <p class="title">
                     <span class="top_title ellipsis">{{ item.title }}</span>
@@ -70,7 +70,7 @@ export default {
   },
   setup() {
     const lazyBox = ref(null)
-    const { result } = useLazyLoadData(() => homeSpecialAPI(3), lazyBox)
+    const { result } = useLazyLoadData(homeSpecialAPI, lazyBox)
 
     return {
       specialList: result,
@@ -88,9 +88,13 @@ export default {
   .goods_body {
     width: 100%;
     height: 360px;
-    .xtx-skeleton {
-      ~ .xtx-skeleton {
-        margin-left: 10px;
+    .skeleton {
+      display: flex;
+      justify-content: space-between;
+      .xtx-skeleton {
+        ~ .xtx-skeleton {
+          margin-left: 10px;
+        }
       }
     }
     ul {

@@ -11,7 +11,7 @@
           <li class="hoverShadow" v-for="item in recommendList" :key="item.id">
             <router-link to="/">
               <!-- <img :src="item.picture" alt="" /> -->
-              <img v-lazyload="item.picture" alt="" />
+              <img v-lazyLoad="item.picture" alt="" />
               <p class="goods_name">{{ item.title }}</p>
               <p class="goods_desc">{{ item.alt }}</p>
             </router-link>
