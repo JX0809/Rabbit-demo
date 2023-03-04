@@ -53,7 +53,7 @@ export default {
   left: 0;
   top: 0;
   border-bottom: 1px solid #e4e4e4;
-  z-index: 100;
+  z-index: 101;
   transform: translateY(-100%);
   opacity: 0;
 

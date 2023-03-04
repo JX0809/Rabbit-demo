@@ -1,6 +1,6 @@
 <template>
   <ul class="header_category">
-    <li><a href="javascript">首页</a></li>
+    <li><router-link to="/">首页</router-link></li>
     <li
       v-for="item in list"
       :key="item.id"
@@ -68,7 +68,7 @@ export default {
   align-items: centers;
   justify-content: space-around;
   position: relative;
-  z-index: 99;
+  z-index: 100;
 
   > li {
     padding: 0 40px 0 0;

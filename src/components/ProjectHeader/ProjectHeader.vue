@@ -3,9 +3,10 @@
     <!-- 一级分类UI结构 -->
     <div class="header">
       <h1 class="logo">
-        <a href=""></a>
+        <!-- 设置为背景图 -->
+        <router-link to="/"></router-link>
       </h1>
-      <HeaderNav></HeaderNav>
+      <ProjectHeaderNav></ProjectHeaderNav>
       <div class="search">
         <i class="iconfont icon-sousuo"></i>
         <input type="text" placeholder="搜一搜" />
@@ -21,12 +22,12 @@
 </template>
 
 <script>
-import HeaderNav from '@/components/ProjectHeader/ProjectHeaderNav.vue'
+import ProjectHeaderNav from '@/components/ProjectHeader/ProjectHeaderNav.vue'
 
 export default {
   name: 'ProjectHeader',
   components: {
-    HeaderNav
+    ProjectHeaderNav
   }
 }
 </script>
