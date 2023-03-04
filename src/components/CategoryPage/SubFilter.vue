@@ -1,15 +1,16 @@
 <template>
   <!-- 筛选区 -->
   <div class="sub-filter" v-if="filterList">
+    <!-- 品牌： -->
     <div class="item">
       <div class="head">品牌：</div>
       <div class="body">
         <a
           href="javascript:;"
-          :class="{ active: filterList.activeId === item.id }"
+          :class="{ active: filterList.activeBrand === item.id }"
           v-for="item in filterList.brands"
           :key="item.id"
-          @click="filterList.activeId = item.id"
+          @click="filterList.activeBrand = item.id"
           >{{ item.name }}
         </a>
       </div>
@@ -18,12 +19,13 @@
     <div class="item" v-for="prop in filterList.saleProperties" :key="prop.id">
       <div class="head">{{ prop.name }}</div>
       <div class="body">
+        <!-- 销售属性的属性 -->
         <a
           href="javascript:;"
-          :class="{ active: filterList.activeId === item.id }"
+          :class="{ active: prop.activeProp === item.id }"
           v-for="item in prop.properties"
           :key="item.id"
-          @click="filterList.activeId = item.id"
+          @click="prop.activeProp = item.id"
         >
           {{ item.name }}
         </a>
@@ -44,9 +46,10 @@ export default {
     const getFilterList = () =>
       subFilterListAPI(route.params.id).then(({ data }) => {
         // 解构
-        data.result.activeId = null
+        data.result.activeBrand = null
         data.result.brands.unshift({ id: null, name: '全部' })
         data.result.saleProperties.forEach((item) => {
+          item.activeProp = null
           item.properties.unshift({ id: null, name: '全部' })
         })
         filterList.value = data.result
