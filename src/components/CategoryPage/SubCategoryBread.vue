@@ -1,18 +1,58 @@
 <template>
   <div class="subcategory_bread_container">
-    <!-- bread 和 breaditem 的父组件都是 catebread。 父组件把 item 以插槽的形式填充到 bread -->
+    <!-- 面包屑 -->
     <XtxBread>
       <XtxBreadItem to="/">首页</XtxBreadItem>
-      <XtxBreadItem> xx</XtxBreadItem>
-      <XtxBreadItem>信息</XtxBreadItem>
+      <XtxBreadItem
+        v-if="subCategory.mainCate"
+        :to="`/category/${subCategory.mainCate.id}`"
+      >
+        {{ subCategory.mainCate.name }}
+      </XtxBreadItem>
+      <transition name="fade-right">
+        <XtxBreadItem
+          v-if="subCategory.subCate"
+          :to="`/category/sub/${subCategory.subCate.id}`"
+          :key="subCategory.subCate.id"
+        >
+          {{ subCategory.subCate.name }}</XtxBreadItem
+        >
+      </transition>
     </XtxBread>
   </div>
 </template>
 
 <script>
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+
+import { computed } from 'vue'
+
 export default {
   name: 'SubCategoryBread',
-  setup() {}
+
+  setup() {
+    const store = useStore()
+    const route = useRoute()
+    const subCategory = computed(() => {
+      const cateObj = {}
+      // 获取一二级分类
+      store.state.category.list.forEach((item) => {
+        item.children &&
+          item.children.forEach((sub) => {
+            if (sub.id === route.params.id) {
+              cateObj.mainCate = { id: item.id, name: item.name }
+              cateObj.subCate = { id: sub.id, name: sub.name }
+            }
+          })
+      })
+      return cateObj
+    })
+
+    return {
+      subCategory
+    }
+  }
 }
 </script>
 

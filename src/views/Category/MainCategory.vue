@@ -60,7 +60,7 @@
 <script>
 import GoodsItem from '@/components/CategoryPage/GoodsItem.vue'
 import { homeCarouselAPI } from '@/api/homeAPI/homeAPI'
-import { MainCateListAPI } from '@/api/categoryAPI/cateListAPI'
+import { mainCateListAPI } from '@/api/categoryAPI/cateListAPI'
 import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
@@ -95,7 +95,7 @@ export default {
     // 所有二级分类商品
     const subCateList = ref([])
     const getSubList = () => {
-      MainCateListAPI(route.params.id).then((data) => {
+      mainCateListAPI(route.params.id).then((data) => {
         subCateList.value = data.data.result.children
       })
     }

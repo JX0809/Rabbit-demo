@@ -1,17 +1,33 @@
 <template>
-  <div class="sub_category_container">二级分类跳转的页面</div>
+  <div class="sub_category_container">
+    <div class="container">
+      <SubCategoryBread></SubCategoryBread>
+
+      <!-- 筛选区 -->
+      <SubFilter></SubFilter>
+    </div>
+  </div>
 </template>
 
 <script>
+import SubCategoryBread from '@/components/CategoryPage/SubCategoryBread.vue'
+import SubFilter from '@/components/CategoryPage/SubFilter.vue'
+
 export default {
-  name: 'SubCategory'
+  name: 'SubCategory',
+  components: {
+    SubCategoryBread,
+    SubFilter
+  }
 }
 </script>
 
 <style lang="less" scoped>
 .sub_category_container {
-  min-height: 600px;
-  margin: 0 auto;
-  width: 1240px;
+  width: 100%;
+  .container {
+    width: 1240px;
+    margin: 0 auto;
+  }
 }
 </style>
