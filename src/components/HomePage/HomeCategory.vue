@@ -52,7 +52,7 @@
       <ul v-if="homeGoodsInfo && homeGoodsInfo.goods">
         <!-- 还没有获取到  xxx.goods， 页面就渲染了 -->
         <li v-for="item in homeGoodsInfo.goods" :key="item.id">
-          <router-link to="/">
+          <router-link :to="`/product/${item.id}`">
             <div class="goods_img">
               <img :src="item.picture" alt="" />
             </div>

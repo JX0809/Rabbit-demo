@@ -79,7 +79,6 @@ export default {
     watch(
       () => route.params.id,
       (newVal) => {
-        console.log(11)
         if (newVal && route.path === `/category/sub/${newVal}`) {
           goodsList.value = []
           apiParams = {

@@ -12,7 +12,7 @@
         <transition name="fade">
           <ul class="goods_list" v-if="goodsList.length">
             <li class="hoverShadow" v-for="item in goodsList" :key="item.id">
-              <router-link to="/">
+              <router-link :to="`/product/${item.id}`">
                 <!-- <img :src="item.picture" alt="" /> -->
                 <!-- 图片懒加载 -->
                 <img v-lazyLoad="item.picture" alt="" />
