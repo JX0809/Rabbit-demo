@@ -57,6 +57,7 @@ export default {
         })
         filterList.value = data.result
       })
+
     watch(
       // 监听二级分类切换， 调用API 函数获取当前二级分类数据
       () => route.params.id,

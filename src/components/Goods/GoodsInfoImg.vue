@@ -83,7 +83,6 @@ const usePreviewingImg = () => {
   })
   const { elementX, elementY, isOutside } = useMouseInElement(target)
   watch([elementX, elementY, isOutside], () => {
-    console.log(elementX, elementY, isOutside)
     // 控制遮罩块的位置x轴
     if (elementX.value < 100) position.left = 0
     else if (elementX.value > 300) position.left = 200

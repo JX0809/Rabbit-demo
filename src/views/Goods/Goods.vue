@@ -24,9 +24,51 @@
           <!-- 商品反馈：评价收藏 -->
           <GoodsInfoFeedback></GoodsInfoFeedback>
         </div>
+
         <!-- 商品规格 -->
         <div class="goods_spec">
-          <GoodsSpec></GoodsSpec>
+          <!-- 商品信息 -->
+          <GoodsSpec :goodsInfo="goodsInfo"></GoodsSpec>
+          <!-- 商品sku -->
+          <!-- 默认选中一个规格: 传入skuid -->
+          <GoodsSku
+            :goodsInfo="goodsInfo"
+            :skuId="goodsInfo.skus[0].id"
+            @changeSpecs="change"
+          ></GoodsSku>
+
+          <!-- 商品数量按钮 -->
+          <XtxNumberBox
+            v-model="countNum"
+            :max="goodsInfo.inventory"
+            label="数量"
+          >
+          </XtxNumberBox>
+
+          <!-- 加入购物车 -->
+          <XtxButton size="middle" type="primary"> 加入购物车 </XtxButton>
+        </div>
+      </div>
+
+      <!-- 同类商品推荐 -->
+      <div class="goods_recommend">
+        <GoodsRecommend :goodsInfo="goodsInfo"></GoodsRecommend>
+      </div>
+
+      <!-- 详情和 热榜 -->
+      <div class="goods_details">
+        <div class="goods_main">
+          <!-- 商品详情和 商品评价 -->
+          <GoodsTab> </GoodsTab>
+          <!-- 注意事项 -->
+          <GoodsNotice></GoodsNotice>
+        </div>
+
+        <!-- 24小时热榜和 周热榜 -->
+        <div class="goods_aside">
+          <!-- 数据类型：要求数字型： 数字转字符串+； 字符串转数字 - -->
+          <GoodsHot :type="1 - 0" :goodsInfo="goodsInfo"></GoodsHot>
+          <GoodsHot :type="2 - 0" :goodsInfo="goodsInfo"></GoodsHot>
         </div>
       </div>
     </div>
@@ -36,24 +78,49 @@
 <script>
 import { getGoodsInfoAPI } from '@/api/GoodsInfoAPI/getGoodsInfoAPI'
 import { useRoute } from 'vue-router'
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, ref, watch, provide } from 'vue'
 
 import GoodsInfoImg from '@/components/Goods/GoodsInfoImg.vue'
 import GoodsInfoFeedback from '@/components/Goods/GoodsInfoFeedback.vue'
 import GoodsSpec from '@/components/Goods/GoodsSpec.vue'
+import GoodsSku from '@/components/Goods/GoodsSku.vue'
+import GoodsRecommend from '@/components/Goods/GoodsRecommend.vue'
+import GoodsTab from '@/components/Goods/GoodsTab.vue'
+import GoodsHot from '@/components/Goods/GoodsHot.vue'
+import GoodsNotice from '@/components/Goods/GoodsNotice.vue'
 
 export default {
   name: 'Goods',
   components: {
     GoodsInfoImg,
     GoodsInfoFeedback,
-    GoodsSpec
+    GoodsSpec,
+    GoodsSku,
+    GoodsRecommend,
+    GoodsTab,
+    GoodsHot,
+    GoodsNotice
   },
   setup() {
     const goodsInfo = useGoods()
+    // 数量按钮默认值
+    const countNum = ref(1)
+
+    // 用户选择的sku 的信息： 不同sku 组合， 价格，库存不一样
+    const change = (spec) => {
+      if (spec.id) {
+        goodsInfo.value.price = spec.price
+        goodsInfo.value.oldPrice = spec.oldPrice
+        goodsInfo.value.inventory = spec.inventory
+      }
+    }
+    // 传递数据给 details 组件
+    provide('goodsInfo', goodsInfo)
 
     return {
-      goodsInfo
+      goodsInfo,
+      change,
+      countNum
     }
   }
 }
@@ -72,7 +139,6 @@ const useGoods = () => {
           nextTick(() => {
             goods.value = data.result
           })
-          console.log(data)
         })
       }
     },
@@ -109,6 +175,24 @@ const useGoods = () => {
         // height: 600px;
         flex: 1;
         padding: 30px 30px 30px 0;
+      }
+    }
+    .goods_recommend {
+      width: 100%;
+      height: 460px;
+      margin-top: 20px;
+    }
+    .goods_details {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+
+      .goods_main {
+        width: 942px;
+      }
+      .goods_aside {
+        width: 278px;
       }
     }
   }

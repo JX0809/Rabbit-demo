@@ -8,10 +8,25 @@
         v-for="(item, i) in sliders"
         :key="i"
       >
+        <!-- 渲染首页轮播图 -->
         <!-- <router-link :to="item.hrefUrl"> -->
-        <router-link to="/">
+        <router-link :to="item.hrefUrl" v-if="item.hrefUrl">
           <img :src="item.imgUrl" alt="" />
         </router-link>
+
+        <!-- 渲染商品详情轮播图 -->
+        <div class="sliders" v-else>
+          <router-link
+            :to="`/product/${goods.id}`"
+            v-for="goods in item"
+            :key="goods.id"
+            class="item"
+          >
+            <img :src="goods.picture" />
+            <p class="name ellipsis">{{ goods.name }}</p>
+            <p class="price">&yen;{{ goods.price }}</p>
+          </router-link>
+        </div>
       </li>
     </ul>
     <!-- 上一张下一张按钮 -->
@@ -148,6 +163,7 @@ export default {
       height: 100%;
       opacity: 0;
       transition: opacity 0.5s linear;
+
       &.fade {
         opacity: 1;
         z-index: 1;
@@ -155,6 +171,39 @@ export default {
       img {
         width: 100%;
         height: 100%;
+      }
+
+      .sliders {
+        display: block;
+        float: left;
+        width: 100%;
+        height: 100%;
+        padding: 20px 30px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        > a {
+          width: 240px;
+          height: 300px;
+          padding-top: 20px;
+          .hoverShadow();
+        }
+
+        img {
+          width: 160px;
+          height: 160px;
+        }
+        p {
+          padding-top: 10px;
+        }
+        .name {
+          font-size: 16px;
+          padding: 10px 20px;
+        }
+        .price {
+          color: @priceColor;
+          font-size: 20px;
+        }
       }
     }
     &_indicator {
@@ -176,7 +225,7 @@ export default {
           margin-left: 12px;
         }
         &.active {
-          background-color: #fff;
+          background-color: #dfcc8c;
         }
       }
     }
@@ -205,6 +254,15 @@ export default {
     .carousel_btn {
       opacity: 1;
     }
+  }
+
+  /deep/.carousel_pre_btn {
+    top: 140px;
+    left: 5px;
+  }
+  /deep/.carousel_next_btn {
+    top: 140px;
+    right: 5px;
   }
 }
 </style>
