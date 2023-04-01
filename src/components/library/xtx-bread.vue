@@ -2,9 +2,11 @@
 import { h } from 'vue'
 export default {
   name: 'XtxBread',
-  // 通过 render函数 生成 html 结构
+  // 通过 render函数 把 h函数指定的元素 渲染为  html 结构
   render() {
+    // render(){} 在 vue2 是 一个 选项式API
     // 获取默认插槽内容 x-bread-item
+    // 不是在 vue3 组件 setup()里， 可以使用 vue2 的 this
     const items = this.$slots.default()
     // 生成动态结构
     const dynamicItems = []

@@ -7,6 +7,8 @@ const Home = () => import('@/views/Home/Home.vue')
 const MainCategory = () => import('@/views/Category/MainCategory.vue')
 const SubCategory = () => import('@/views/Category/SubCategory.vue')
 const Goods = () => import('@/views/Goods/Goods.vue')
+const Login = () => import('@/views/Login/Login.vue')
+const LoginCallback = () => import('@/views/Login/LoginCallback.vue')
 
 const routes = [
   {
@@ -19,7 +21,9 @@ const routes = [
       { path: '/product/:id', component: Goods }
 
     ]
-  }
+  },
+  { path: '/login', component: Login },
+  { path: '/login/callback', component: LoginCallback }
 ]
 
 // 创建 路由 实例
@@ -33,4 +37,5 @@ const router = createRouter({
   }
 })
 
+// 路由全局前置守卫
 export default router

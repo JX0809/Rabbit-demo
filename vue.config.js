@@ -14,7 +14,7 @@ module.exports = defineConfig({
 
       ]
     }
-  }
+  },
   // chainWebpack: config => {   // 报错
   //   config.module
   //     .rule('images')
@@ -22,4 +22,13 @@ module.exports = defineConfig({
   //     .loader('url-loader')
   //     .tap(options => Object.assign(options, { limit: 10000 }))
   // }
+  configureWebpack: {
+    devServer: {
+      allowedHosts: ['www.corho.com'] // 此处是要改变的域名
+    },
+    externals: {
+      qc: 'QC'
+    }
+
+  }
 })

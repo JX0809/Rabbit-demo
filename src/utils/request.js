@@ -35,10 +35,11 @@ instance.interceptors.response.use(
     // token过期，响应结果出错的操作
     if (error.response && error.response.status === 401) {
       // 清除用户信息
-      store.commit('user/clearState')
+      store.commit('user/clearState', {})
       // 登录成功后跳转到 访问失败的页面： router.currentRoute.fullPath 获取当前的路由地址
       // vue3 的 router.currentRoute 是 ref 定义的响应式数据
-      router.replace('/login?pre=' + router.currentRoute.value.fullPath)
+      const fullPath = router.currentRoute.value.fullPath
+      router.replace('/login?pre=' + fullPath)
     }
     return Promise.reject(error)
   })

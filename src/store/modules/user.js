@@ -10,17 +10,22 @@ export default {
         account: '',
         mobile: '',
         token: ''
-      }
+      },
+      // 回跳地址
+      redirectUrl: '/'
     }
   },
   mutations: {
     // token失效， 清除vuex数据
-    clearState(state) {
-      state.profile = {}
+    clearState(state, payload) {
+      state.profile = payload
     },
-    // 更新token
-    updatedToken(state, payload) {
-      state.profile.token = payload
+    // 更新用户信息和token
+    updatedUserProfile(state, payload) {
+      state.profile = payload
+    },
+    setRedirectUrl(state, url) {
+      state.redirectUrl = url
     }
   },
   actions: {},

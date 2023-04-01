@@ -1,6 +1,7 @@
 <template>
   <div class="home_brand_container">
     <HomePanel title="热门品牌" subTitle="国际经典 品质保证">
+      <!-- 具名插槽的内容 -->
       <template v-slot:more>
         <!-- router-link 改为 span： 路由跳转 默认页面滚动回顶部 -->
         <span
@@ -19,7 +20,7 @@
         </span>
       </template>
 
-      <!-- 主体内容 -->
+      <!-- 默认插槽的主体内容 -->
       <div class="goods_body" ref="lazyBox">
         <transition name="fade">
           <ul

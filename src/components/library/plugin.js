@@ -8,6 +8,7 @@
 // import XtxMore from './xtx-more.vue'
 // 导入默认 图片
 import defaultImg from '@/assets/images/200.png'
+// import messageBox from '@/components/library/xtx-message.vue'
 
 // 自动批量导入注册全局组件
 // require.context()加载 library 目录下的所有.vue文件
@@ -28,6 +29,9 @@ export default {
 
     // 自定义指令
     defineDirective(App)
+
+    // 把消息提醒函数 挂载到 vue原型上
+    // App.config.globalProperties.$message = messageBox
   }
 }
 

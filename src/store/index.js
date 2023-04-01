@@ -15,8 +15,8 @@ export default createStore({
   },
   plugins: [
     createPersistedstate({ // 默认存储到 localStorage
-      key: 'rabbit-eshopping-store',
-      paths: ['user', 'cart'] // path 是存储在 state的数据
+      key: 'rabbit-eshopping-store', // 对应 localStorage 的 Key
+      paths: ['user', 'cart'] // path对应 localStorage的 Value： 值是存储在 state的数据
     })
   ]
 })

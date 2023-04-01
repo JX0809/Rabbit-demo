@@ -4,12 +4,12 @@
       <!-- 面包屑 -->
       <XtxBread>
         <XtxBreadItem to="/">首页</XtxBreadItem>
-        <XtxBreadItem :to="`/category/${goodsInfo.categories[1].id}`">{{
-          goodsInfo.categories[1].name
-        }}</XtxBreadItem>
-        <XtxBreadItem :to="`/category/sub/${goodsInfo.categories[0].id}`">{{
-          goodsInfo.categories[0].name
-        }}</XtxBreadItem>
+        <XtxBreadItem :to="`/category/${goodsInfo.categories[1].id}`">
+          {{ goodsInfo.categories[1].name }}
+        </XtxBreadItem>
+        <XtxBreadItem :to="`/category/sub/${goodsInfo.categories[0].id}`">
+          {{ goodsInfo.categories[0].name }}
+        </XtxBreadItem>
         <transition name="fade-right" mode="out-in">
           <XtxBreadItem> {{ goodsInfo.name }} </XtxBreadItem>
         </transition>
