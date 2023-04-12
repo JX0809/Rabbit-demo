@@ -133,6 +133,7 @@ export default {
 
 // 获区地址数据
 const getCityData = () => {
+  // 可能时同步操作： 本地有数据； 可能时异步操作： 本地没有数据，请求接口获取数据
   return new Promise((resolve, reject) => {
     if (window.cityData) {
       resolve(window.cityData)

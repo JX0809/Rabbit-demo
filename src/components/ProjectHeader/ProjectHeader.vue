@@ -11,23 +11,28 @@
         <i class="iconfont icon-sousuo"></i>
         <input type="text" placeholder="搜一搜" />
       </div>
-      <div class="shop_cart">
-        <a href="">
-          <i class="iconfont icon-gouwuche"></i>
-          <em>2</em>
-        </a>
-      </div>
+
+      <!-- 购物车 -->
+      <HeaderCart></HeaderCart>
     </div>
   </div>
 </template>
 
 <script>
 import ProjectHeaderNav from '@/components/ProjectHeader/ProjectHeaderNav.vue'
+import HeaderCart from '../Cart/HeaderCart.vue'
+import { ref } from 'vue'
 
 export default {
   name: 'ProjectHeader',
   components: {
-    ProjectHeaderNav
+    ProjectHeaderNav,
+    HeaderCart
+  },
+  setup() {
+    const isVisible = ref(false)
+
+    return { isVisible }
   }
 }
 </script>
@@ -63,31 +68,6 @@ export default {
       }
       i {
         font-size: 20px;
-      }
-    }
-    .shop_cart {
-      margin-left: 10px;
-      a {
-        position: relative;
-
-        i {
-          font-size: 18px;
-        }
-
-        em {
-          position: absolute;
-          top: -8px;
-          right: -10px;
-          width: 14px;
-          height: 14px;
-          font-size: 12px;
-          color: #ffffff;
-          font-style: normal;
-          text-align: center;
-          line-height: 14px;
-          background-color: #e26237;
-          border-radius: 50%;
-        }
       }
     }
   }

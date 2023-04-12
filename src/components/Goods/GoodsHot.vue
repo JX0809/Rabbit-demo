@@ -21,7 +21,7 @@
 
 <script>
 import { ref, computed } from 'vue'
-import { getHotGoodsList } from '@/api/GoodsInfoAPI/getGoodsInfoAPI'
+import { getHotGoodsList } from '@/api/GoodsInfoAPI/getGoodsInfoAPI.js'
 export default {
   name: 'GoodsHot',
   props: {

@@ -107,6 +107,7 @@ export default {
     }
   },
   setup(props) {
+    // 没有小兔仙账号, 没有绑定手机号
     const bindFormData = reactive({
       id: null,
       accountChecked: null,
@@ -160,6 +161,7 @@ export default {
     const router = useRouter()
     const store = useStore()
 
+    // 验证整个表单
     const registerLogin = async () => {
       const valid = await formTarget.value.validate()
       if (valid) {
@@ -174,8 +176,11 @@ export default {
               token,
               mobile
             })
+
+            // 登录成功, 合并 购物车
+            store.dispatch('cart/mergeCart')
             messageBox({ type: 'success', text: 'QQ绑定成功' })
-            router.push(store.state.user.redirectUr || '/')
+            router.push(store.state.user.redirectUrl || '/')
           })
           .catch(({ e }) => {
             console.log(e)

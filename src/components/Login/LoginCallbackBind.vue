@@ -84,6 +84,7 @@ export default {
     }
   },
   setup(props) {
+    // 有账号,QQ 未绑定手机号
     // 定义表单及  表单校验规则
     const form = reactive({
       mobile: null,
@@ -151,14 +152,17 @@ export default {
               token,
               mobile
             })
+
+            // 登录成功, 合并 购物车
+            store.dispatch('cart/mergeCart')
             messageBox({ type: 'success', text: '登录成功' })
-            router.push(store.state.user.redirectUr || '/')
+            router.push(store.state.user.redirectUrl || '/')
           })
           .catch((e) => {
             if (e.response.data.message) {
               messageBox({ type: 'error', text: e.response.data.message })
             } else {
-              messageBox({ type: 'error', text: '登录失败' })
+              messageBox({ type: 'error', text: 'QQ登录失败' })
             }
           })
       }

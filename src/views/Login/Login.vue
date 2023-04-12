@@ -60,7 +60,9 @@ export default {
     const loginWay = ref('account')
     const store = useStore()
     const route = useRoute()
-    store.commit('user/setRedirectUrl', route.query.redirectUrl)
+
+    // 保存访问未遂的网址
+    store.commit('user/setRedirectUrl', route.query.pre)
 
     return { loginWay }
   }

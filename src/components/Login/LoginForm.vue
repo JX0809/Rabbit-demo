@@ -130,7 +130,7 @@
 </template>
 
 <script>
-import { reactive, ref, toRefs, watch, onUnmounted } from 'vue'
+import { reactive, ref, toRefs, watch, onMounted, onUnmounted } from 'vue'
 // 导入验证
 import veeSchema from '@/utils/vee-validate-schemas'
 import { Form, Field } from 'vee-validate'
@@ -141,7 +141,7 @@ import {
   getLoginCodeAPI
 } from '@/api/loginAPI/loginAPI'
 import { useStore } from 'vuex'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 import messageBox from '@/components/library/message'
 import { useIntervalFn } from '@vueuse/core'
@@ -190,7 +190,7 @@ export default {
     // 点击登录， 对整个表单进行验证
     const store = useStore()
     const router = useRouter()
-    const route = useRoute()
+    // const route = useRoute()
 
     // 定义 短信验证码定时器
     const time = ref(0)
@@ -205,13 +205,17 @@ export default {
       1000,
       false // 是否立刻开启
     )
-    onUnmounted(() => {
-      // 组件销毁时停止定时器
-      pause()
-      // 组件渲染完毕，使用QC生成QQ登录按钮
+
+    // 组件渲染完毕，使用QC生成QQ登录按钮
+    onMounted(() => {
       QC.Login({
         btnId: 'qqLoginBtn'
       })
+    })
+
+    // 组件销毁时停止定时器
+    onUnmounted(() => {
+      pause()
     })
 
     // 点击发送短信
@@ -235,14 +239,35 @@ export default {
       // 判断是账户登录还是 手机号登录
 
       if (valid) {
-        let data = null
+        let data = null // 存储登录成功后的用户信息
         try {
           // 合并了相同的代码： 请求接口API
           if (!isMsgLogin.value) {
+            // 判断短信登录还是 账号登录, 调用不同的API, 给同一个data赋值
             data = await loginMsgAPI(loginData.mobile, loginData.code)
           } else {
             data = await loginAccountAPI(loginData.account, loginData.password)
           }
+
+          // 登录成功的 操作
+          // 登录成功, 合并 购物车
+          store.dispatch('cart/mergeCart')
+          // 存储用户信息
+          const { id, account, nickname, avatar, token, mobile } =
+            data.data.result
+          store.commit('user/updatedUserProfile', {
+            id,
+            account,
+            nickname,
+            avatar,
+            token,
+            mobile
+          })
+
+          messageBox({ type: 'success', text: '登录成功' })
+          // 登录成功后， 跳转到 访问未遂 的页面或者首页
+          // router.push(route.query.pre || '/')
+          router.push(store.state.user.redirectUrl || '/')
         } catch (e) {
           // 请求失败的回调
           if (e.response.data.message) {
@@ -251,20 +276,6 @@ export default {
             messageBox({ type: 'error', text: '登录失败' })
           }
         }
-
-        // 请求成功的操作
-        const { id, account, nickname, avatar, token, mobile } =
-          data.data.result
-        store.commit('user/updatedUserProfile', {
-          id,
-          account,
-          nickname,
-          avatar,
-          token,
-          mobile
-        })
-        messageBox({ type: 'success', text: '登录成功' })
-        router.push(route.query.redirectUrl || '/')
       }
     }
 

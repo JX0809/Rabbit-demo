@@ -3,7 +3,7 @@
     <ul class="goods_list">
       <li v-for="goods in productList" :key="goods.id">
         <div class="goods_item">
-          <router-link to="/">
+          <router-link :to="`/product/${goods.id}`">
             <img :src="goods.picture" alt="" />
           </router-link>
           <p class="goods_name ellipsis-2">{{ goods.name }}</p>

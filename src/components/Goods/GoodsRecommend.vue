@@ -3,7 +3,7 @@
     <div class="header">
       <i class="icon"></i>
       <span class="title">
-        {{ goodsInfo.id ? '同类商品推荐' : '猜你喜欢' }}</span
+        {{ goodsInfoId ? '同类商品推荐' : '猜你喜欢' }}</span
       >
     </div>
     <div class="recommend_carousel">
@@ -19,16 +19,16 @@ import { getGoodsRecommendAPI } from '@/api/GoodsInfoAPI/getGoodsInfoAPI'
 export default {
   name: 'GoodsRecommend',
   props: {
-    goodsInfo: {
-      type: Object,
-      default: () => {}
+    goodsInfoId: {
+      type: String,
+      default: null
     }
   },
   setup(props) {
     // 获取商品同类推荐-未传入ID为猜喜欢
     const sliders = ref([])
     // 获取 同类推荐数据
-    getGoodsRecommendAPI(props.goodsInfo.id).then(({ data }) => {
+    getGoodsRecommendAPI(props.goodsInfoId).then(({ data }) => {
       // 共 16条数据， 每个li 里 4条。 轮播图先循环4个里， 再循环每个li 里的 4条商品数据
       // [li:[1：{}, 2, 3, 4],li... ]
       const size = 4

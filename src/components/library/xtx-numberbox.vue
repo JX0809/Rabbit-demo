@@ -40,7 +40,7 @@ export default {
       if (newVal > props.max) return
       countValue.value = newVal
 
-      emit('change', newVal)
+      emit('changeNum', newVal)
     }
     return {
       changeNum,

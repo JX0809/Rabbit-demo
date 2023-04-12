@@ -28,14 +28,10 @@
         <!-- 商品规格 -->
         <div class="goods_spec">
           <!-- 商品信息 -->
-          <GoodsSpec :goodsInfo="goodsInfo"></GoodsSpec>
+          <GoodsSpec :goodsSpec="goodsInfo"></GoodsSpec>
           <!-- 商品sku -->
           <!-- 默认选中一个规格: 传入skuid -->
-          <GoodsSku
-            :goodsInfo="goodsInfo"
-            :skuId="goodsInfo.skus[0].id"
-            @changeSpecs="change"
-          ></GoodsSku>
+          <GoodsSku :goodsInfo="goodsInfo" @changeSpecs="change"> </GoodsSku>
 
           <!-- 商品数量按钮 -->
           <XtxNumberBox
@@ -46,13 +42,15 @@
           </XtxNumberBox>
 
           <!-- 加入购物车 -->
-          <XtxButton size="middle" type="primary"> 加入购物车 </XtxButton>
+          <XtxButton size="middle" type="primary" @click="addToCart">
+            加入购物车
+          </XtxButton>
         </div>
       </div>
 
       <!-- 同类商品推荐 -->
-      <div class="goods_recommend">
-        <GoodsRecommend :goodsInfo="goodsInfo"></GoodsRecommend>
+      <div class="goods_recommend" v-if="goodsInfo">
+        <GoodsRecommend :goodsInfoId="goodsInfo.id"></GoodsRecommend>
       </div>
 
       <!-- 详情和 热榜 -->
@@ -89,6 +87,9 @@ import GoodsTab from '@/components/Goods/GoodsTab.vue'
 import GoodsHot from '@/components/Goods/GoodsHot.vue'
 import GoodsNotice from '@/components/Goods/GoodsNotice.vue'
 
+import messageBox from '@/components/library/message'
+import { useStore } from 'vuex'
+
 export default {
   name: 'Goods',
   components: {
@@ -103,24 +104,65 @@ export default {
   },
   setup() {
     const goodsInfo = useGoods()
-    // 数量按钮默认值
-    const countNum = ref(1)
+    // 传递数据给 details 组件
+    provide('goodsInfo', goodsInfo)
 
-    // 用户选择的sku 的信息： 不同sku 组合， 价格，库存不一样
+    // 自定义事件处理函数： 用户选择的sku 的信息： 不同sku 组合， 价格，库存不一样
     const change = (spec) => {
-      if (spec.id) {
+      // 如果选择了 完整的 sku， 就有数据
+      if (spec.skuId) {
+        // 重新赋值最新的价格库存
         goodsInfo.value.price = spec.price
         goodsInfo.value.oldPrice = spec.oldPrice
         goodsInfo.value.inventory = spec.inventory
+
+        currSku.value = spec
+      } else {
+        // 没有选择完整的sku信息， 等于 null
+        // currSku.value = {} // 商品只选中其中一个规则, 也会提示加入购物车成功
+        currSku.value = null // 提示选择商品规格
       }
     }
-    // 传递数据给 details 组件
-    provide('goodsInfo', goodsInfo)
+
+    const currSku = ref(null)
+    // 数量按钮组价默认值
+    const countNum = ref(1)
+    // 存储选中的SKU 的所有信息
+
+    const store = useStore()
+    // 加入购物车功能
+    const addToCart = () => {
+      if (currSku.value === null) {
+        return messageBox({ type: 'warn', text: '请选择商品规格' })
+      }
+      if (countNum.value > goodsInfo.value.inventory) {
+        return messageBox({ type: 'warn', text: '库存不足' })
+      }
+      // 调用vuex actions， 往 state 添加商品数据
+      store
+        .dispatch('cart/addToShoppingCart', {
+          id: goodsInfo.value.id,
+          skuId: currSku.value.skuId,
+          name: goodsInfo.value.name,
+          picture: goodsInfo.value.mainPictures[0],
+          price: currSku.value.oldPrice,
+          nowPrice: currSku.value.price,
+          count: countNum.value,
+          attrsText: currSku.value.specsText,
+          selected: true,
+          isEffective: true,
+          stock: currSku.value.inventory
+        })
+        .then(() => {
+          messageBox({ type: 'success', text: '加入购物车成功' })
+        })
+    }
 
     return {
       goodsInfo,
       change,
-      countNum
+      countNum,
+      addToCart
     }
   }
 }

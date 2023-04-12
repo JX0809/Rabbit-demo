@@ -108,6 +108,9 @@ export default {
               nickname,
               token
             })
+
+            // 登录成功, 合并 购物车
+            store.dispatch('cart/mergeCart')
             router.push(store.state.user.redirectUrl)
             messageBox({ type: 'success', text: '登录成功' })
             // 登录成功显示loading后 直接跳转页面

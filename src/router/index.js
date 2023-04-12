@@ -1,3 +1,4 @@
+import store from '@/store/index'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 // 导入组件
@@ -9,6 +10,8 @@ const SubCategory = () => import('@/views/Category/SubCategory.vue')
 const Goods = () => import('@/views/Goods/Goods.vue')
 const Login = () => import('@/views/Login/Login.vue')
 const LoginCallback = () => import('@/views/Login/LoginCallback.vue')
+const Cart = () => import('@/views/Cart/Cart.vue')
+const Checkout = () => import('@/views/Checkout/Checkout.vue')
 
 const routes = [
   {
@@ -18,7 +21,9 @@ const routes = [
       { path: '/', component: Home },
       { path: '/category/:id', component: MainCategory },
       { path: '/category/sub/:id', component: SubCategory },
-      { path: '/product/:id', component: Goods }
+      { path: '/product/:id', component: Goods },
+      { path: '/cart', component: Cart },
+      { path: '/member/checkout', component: Checkout }
 
     ]
   },
@@ -36,6 +41,21 @@ const router = createRouter({
     return { left: 0, top: 0 }
   }
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/member/checkout') {
+    const token = store.state.user.profile.token
+    if (token) {
+      next()
+    } else {
+      // console.log(to.fullPath) // '/member/checkout'
+      next(`/login?pre=${to.fullPath}`) // /login?pre=/member/checkout
+    }
+  } else {
+    next()
+  }
+}
+)
 
 // 路由全局前置守卫
 export default router

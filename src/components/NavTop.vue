@@ -37,7 +37,10 @@ export default {
       return store.state.user.profile
     })
     const logout = () => {
+      // 清空用户信息
       store.commit('user/clearState', {})
+      // 清空购物车数据
+      store.commit('cart/setCartList', [])
       router.push('/login')
     }
     return { logout, profile }

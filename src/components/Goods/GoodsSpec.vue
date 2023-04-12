@@ -1,11 +1,11 @@
 <template>
   <div class="goods_spec_container">
     <div class="goods_spec">
-      <p class="g-name">{{ goodsInfo.name }}</p>
-      <p class="g-desc">{{ goodsInfo.desc }}</p>
+      <p class="g-name">{{ goodsSpec.name }}</p>
+      <p class="g-desc">{{ goodsSpec.desc }}</p>
       <p class="g-price">
-        <span>{{ goodsInfo.price }}</span>
-        <span>{{ goodsInfo.oldPrice }}</span>
+        <span>{{ goodsSpec.price }}</span>
+        <span>{{ goodsSpec.oldPrice }}</span>
       </p>
       <div class="g-service">
         <dl>
@@ -41,7 +41,7 @@ import { ref } from 'vue'
 export default {
   name: 'GoodsSpec',
   props: {
-    goodsInfo: {
+    goodsSpec: {
       type: Object,
       default: () => {}
     }
@@ -54,8 +54,8 @@ export default {
     const fullLocation = ref('北京市 市辖区 东城区')
 
     // 判断登录后是否有默认地址， 重新赋值
-    if (props.goodsInfo.userAddresses) {
-      const defaultAddress = props.goods.userAddresses.find(
+    if (props.goodsSpec.userAddresses) {
+      const defaultAddress = props.goodsSpec.userAddresses.find(
         (addr) => addr.isDefault === 1
       )
       if (defaultAddress) {

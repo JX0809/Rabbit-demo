@@ -1,3 +1,4 @@
+// 导入消息提示组件
 import XtxMessage from '@/components/library/xtx-message.vue'
 import { createVNode, render } from 'vue'
 
