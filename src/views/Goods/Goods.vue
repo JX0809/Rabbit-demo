@@ -87,7 +87,7 @@ import GoodsTab from '@/components/Goods/GoodsTab.vue'
 import GoodsHot from '@/components/Goods/GoodsHot.vue'
 import GoodsNotice from '@/components/Goods/GoodsNotice.vue'
 
-import messageBox from '@/components/library/message'
+import MessageBox from '@/components/library/message'
 import { useStore } from 'vuex'
 
 export default {
@@ -133,10 +133,10 @@ export default {
     // 加入购物车功能
     const addToCart = () => {
       if (currSku.value === null) {
-        return messageBox({ type: 'warn', text: '请选择商品规格' })
+        return MessageBox({ type: 'warn', text: '请选择商品规格' })
       }
       if (countNum.value > goodsInfo.value.inventory) {
-        return messageBox({ type: 'warn', text: '库存不足' })
+        return MessageBox({ type: 'warn', text: '库存不足' })
       }
       // 调用vuex actions， 往 state 添加商品数据
       store
@@ -154,7 +154,7 @@ export default {
           stock: currSku.value.inventory
         })
         .then(() => {
-          messageBox({ type: 'success', text: '加入购物车成功' })
+          MessageBox({ type: 'success', text: '加入购物车成功' })
         })
     }
 

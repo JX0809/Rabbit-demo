@@ -19,6 +19,7 @@
             <XtxCity
               :fullLocation="fullLocation"
               @change="changeCity"
+              placeholder="请选择配送地址"
             ></XtxCity>
           </dd>
         </dl>
@@ -56,7 +57,7 @@ export default {
     // 判断登录后是否有默认地址， 重新赋值
     if (props.goodsSpec.userAddresses) {
       const defaultAddress = props.goodsSpec.userAddresses.find(
-        (addr) => addr.isDefault === 1
+        (addr) => addr.isDefault === 0 // == 0 才是，默认地址
       )
       if (defaultAddress) {
         provinceCode.value = defaultAddress.provinceCode
@@ -65,7 +66,7 @@ export default {
         fullLocation.value = defaultAddress.fullLocation
       }
     }
-    // 自定义事件的处理函数
+    // 城市组件自定义事件的处理函数
     const changeCity = (res) => {
       provinceCode.value = res.provinceCode
       cityCode.value = res.cityCode

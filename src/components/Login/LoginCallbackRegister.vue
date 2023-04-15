@@ -93,7 +93,7 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import veeSchema from '@/utils/vee-validate-schemas'
 import { Form, Field } from 'vee-validate'
-import messageBox from '@/components/library/message'
+import MessageBox from '@/components/library/message'
 import { useIntervalFn } from '@vueuse/core'
 import { QQRegisterCodeAPI, QQRegisterLoginAPI } from '@/api/loginAPI/loginAPI'
 
@@ -146,11 +146,11 @@ export default {
     const sendCode = async () => {
       const valid = mySchema.mobile(bindFormData.mobile)
       if (valid !== true) {
-        messageBox({ type: 'warn', text: valid })
+        MessageBox({ type: 'warn', text: valid })
       } else {
         if (time.value === 0) {
           await QQRegisterCodeAPI(bindFormData.mobile)
-          messageBox({ type: 'success', text: '发送成功' })
+          MessageBox({ type: 'success', text: '发送成功' })
           time.value = 60
           resume()
         }
@@ -179,15 +179,15 @@ export default {
 
             // 登录成功, 合并 购物车
             store.dispatch('cart/mergeCart')
-            messageBox({ type: 'success', text: 'QQ绑定成功' })
+            MessageBox({ type: 'success', text: 'QQ绑定成功' })
             router.push(store.state.user.redirectUrl || '/')
           })
           .catch(({ e }) => {
             console.log(e)
             if (e.response.data.message) {
-              messageBox({ type: 'error', text: e.response.data.message })
+              MessageBox({ type: 'error', text: e.response.data.message })
             } else {
-              messageBox({ type: 'error', text: '登录失败' })
+              MessageBox({ type: 'error', text: '登录失败' })
             }
           })
       }

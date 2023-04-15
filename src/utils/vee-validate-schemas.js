@@ -44,5 +44,26 @@ export default {
   isAgree(value) {
     if (!value) return '请勾选同意用户协议'
     return true
+  },
+  receiver(value) {
+    if (!value) return '请输入收货人姓名'
+    return true
+  },
+  city(value) {
+    if (!value) return '请选择所在的省、市'
+    return true
+  },
+  postalCode(value) {
+    if (!value) return '请输入邮政编码'
+    if (!/^\d{6}$/.test(value)) return '邮政编码为6位数字'
+    return true
+  },
+  address(value) {
+    if (!value) return '请输入详细地址'
+    return true
+  },
+  label(value) {
+    if (!value) return '请输入地址标签'
+    return true
   }
 }

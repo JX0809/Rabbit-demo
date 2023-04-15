@@ -19,8 +19,17 @@ export default {
   },
   setup(props, { emit }) {
     // const checked = ref(false)
+    // watch(
+    //   () => props.modelValue,
+    //   () => {
+    //       checked.value = props.modelValue
+    //   },
+    //   {
+    //     immediate: true
+    //   }
     // const changeChecked = () => {
-    //   checked.value = !checked.value
+    // checked.value = !checked.value
+    // emit('update:modelValue', checked.value)
     // }
 
     // 使用 useVModel 实现双向数据绑定： 是一个响应式数据

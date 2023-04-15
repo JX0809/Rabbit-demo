@@ -143,7 +143,7 @@ import {
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
-import messageBox from '@/components/library/message'
+import MessageBox from '@/components/library/message'
 import { useIntervalFn } from '@vueuse/core'
 import QC from 'qc'
 
@@ -223,11 +223,11 @@ export default {
       // 验证手机号是否为空
       const valid = mySchema.mobile(loginData.mobile)
       if (valid !== true) {
-        messageBox({ type: 'warn', text: valid })
+        MessageBox({ type: 'warn', text: '发送验证码失败' })
       } else {
         if (time.value === 0) {
           await getLoginCodeAPI(loginData.mobile)
-          messageBox({ type: 'success', text: '发送成功' })
+          MessageBox({ type: 'success', text: '发送验证码成功' })
           time.value = 60
           resume()
         }
@@ -264,16 +264,16 @@ export default {
             mobile
           })
 
-          messageBox({ type: 'success', text: '登录成功' })
+          MessageBox({ type: 'success', text: '登录成功' })
           // 登录成功后， 跳转到 访问未遂 的页面或者首页
           // router.push(route.query.pre || '/')
           router.push(store.state.user.redirectUrl || '/')
         } catch (e) {
           // 请求失败的回调
           if (e.response.data.message) {
-            messageBox({ type: 'error', text: e.response.data.message })
+            MessageBox({ type: 'error', text: e.response.data.message })
           } else {
-            messageBox({ type: 'error', text: '登录失败' })
+            MessageBox({ type: 'error', text: '登录失败' })
           }
         }
       }

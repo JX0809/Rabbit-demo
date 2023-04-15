@@ -1,5 +1,6 @@
-import { useIntersectionObserver } from '@vueuse/core'
-import { ref } from 'vue'
+import { useIntersectionObserver, useIntervalFn } from '@vueuse/core'
+import { ref, onUnmounted } from 'vue'
+import dayjs from 'dayjs'
 
 // 数据懒加载
 export const useLazyLoadData = (apiFn, target) => {
@@ -23,5 +24,39 @@ export const useLazyLoadData = (apiFn, target) => {
   // 返回数据
   return {
     result
+  }
+}
+
+// 支付倒计时
+
+export const usePayTimeCountdown = () => {
+  const time = ref(0)
+  const timeTxt = ref('')
+
+  // 定义定时器
+  const { resume, pause } = useIntervalFn(
+    () => {
+      time.value--
+      timeTxt.value = dayjs.unix(time.value).format('mm分ss秒')
+      if (time.value <= 0) {
+        pause()
+      }
+    },
+    1000,
+    false
+  )
+  onUnmounted(() => {
+    pause()
+  })
+
+  // 定义开启定时器方法
+  const start = (countdown) => {
+    time.value = countdown
+    timeTxt.value = dayjs.unix(time.value).format('mm分ss秒')
+    resume() // 调用定时器
+  }
+
+  return {
+    start, timeTxt
   }
 }

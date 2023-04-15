@@ -57,7 +57,7 @@ import LoginCallbackRegister from '@/components/Login/LoginCallbackRegister.vue'
 import QC from 'qc'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import messageBox from '@/components/library/message'
+import MessageBox from '@/components/library/message'
 import { QQLoginAPI } from '@/api/loginAPI/loginAPI'
 
 export default {
@@ -112,7 +112,7 @@ export default {
             // 登录成功, 合并 购物车
             store.dispatch('cart/mergeCart')
             router.push(store.state.user.redirectUrl)
-            messageBox({ type: 'success', text: '登录成功' })
+            MessageBox({ type: 'success', text: '登录成功' })
             // 登录成功显示loading后 直接跳转页面
           })
           .catch((e) => {

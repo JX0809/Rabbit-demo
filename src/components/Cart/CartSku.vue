@@ -8,6 +8,7 @@
     <!-- sku规则 -->
     <div class="layer" v-if="visible">
       <!-- SKU组件 -->
+
       <GoodsSku
         v-if="cartGoodsSku"
         :skuId="skuId"
@@ -15,6 +16,7 @@
         @changeSpecs="changeSku"
       >
       </GoodsSku>
+
       <!-- 按钮组件 -->
       <xtxButton
         size="mini"
@@ -54,16 +56,18 @@ export default {
   },
   setup(props, { emit }) {
     const visible = ref(false)
-    // 打开
+
     const cartGoodsSku = ref(null)
     // 获取购物车商品的 规格信息， 渲染页面
     const show = async () => {
       visible.value = true
       getCartGoodsSkuAPI(props.skuId).then((res) => {
         cartGoodsSku.value = res.data.result
+        console.log(cartGoodsSku.value)
+        console.log(props.skuId)
       })
     }
-    // 打开
+
     const close = () => {
       visible.value = false
       cartGoodsSku.value = null

@@ -109,7 +109,6 @@ export default {
     },
     // 修改商品的选中状态 或 商品的数量(单选)
     reviseGoodsInfo(context, goods) {
-      console.log(goods)
       return new Promise((resolve, reject) => {
         if (context.rootState.user.profile.token) {
           reviseGoodsInCartAPI(goods).then(() => {

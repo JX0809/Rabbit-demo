@@ -12,6 +12,8 @@ const Login = () => import('@/views/Login/Login.vue')
 const LoginCallback = () => import('@/views/Login/LoginCallback.vue')
 const Cart = () => import('@/views/Cart/Cart.vue')
 const Checkout = () => import('@/views/Checkout/Checkout.vue')
+const XtxPayPage = () => import('@/views/Checkout/xtx-pay-page.vue')
+const XtxPayResult = () => import('@/views/Checkout/xtx-pay-result.vue')
 
 const routes = [
   {
@@ -23,7 +25,9 @@ const routes = [
       { path: '/category/sub/:id', component: SubCategory },
       { path: '/product/:id', component: Goods },
       { path: '/cart', component: Cart },
-      { path: '/member/checkout', component: Checkout }
+      { path: '/member/checkout', component: Checkout },
+      { path: '/member/pay', component: XtxPayPage },
+      { path: '/pay/callback', component: XtxPayResult }
 
     ]
   },

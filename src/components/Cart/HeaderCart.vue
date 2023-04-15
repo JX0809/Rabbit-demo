@@ -53,7 +53,7 @@
 </template>
 <script>
 import { useStore } from 'vuex'
-import messageBox from '@/components/library/message'
+import MessageBox from '@/components/library/message'
 
 export default {
   name: 'HeaderCart',
@@ -67,10 +67,10 @@ export default {
       store
         .dispatch('cart/deleteGoodsInCart', skuId)
         .then(() => {
-          messageBox({ type: 'success', text: '删除成功' })
+          MessageBox({ type: 'success', text: '删除成功' })
         })
         .catch((e) => {
-          messageBox({ type: 'error', text: '删除失败' })
+          MessageBox({ type: 'error', text: '删除失败' })
         })
     }
     return { deleteCurrGoods }

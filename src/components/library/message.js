@@ -24,3 +24,9 @@ export default ({ type, text }) => {
     render(null, div)
   }, 3000)
 }
+
+/**
+ * 使用
+ * 1. 导入使用：vue3
+ * 2. 挂载到 原型上， 通过 $confirm 使用： vue2
+ */

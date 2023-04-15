@@ -1,5 +1,7 @@
 <template>
+  <!-- 黑色遮罩层 -->
   <div class="xtx-confirm" :class="{ fade: show }">
+    <!-- 确认框 -->
     <div class="wrapper" :class="{ fade: show }">
       <div class="header">
         <h3>{{ title }}</h3>
@@ -50,7 +52,7 @@ export default {
   },
   setup() {
     const show = ref(false)
-    // 过渡动画在组件被创建完毕后一会才能生效
+    // 过渡效果在组件被创建完毕后一会才能生效
     onMounted(() => {
       setTimeout(() => {
         show.value = true

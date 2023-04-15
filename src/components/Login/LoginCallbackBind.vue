@@ -58,7 +58,7 @@ import veeSchema from '@/utils/vee-validate-schemas'
 import { Form, Field } from 'vee-validate'
 import { getMobileCodeAPI, QQBindLoginAPI } from '@/api/loginAPI/loginAPI'
 import { useIntervalFn } from '@vueuse/core'
-import messageBox from '@/components/library/message'
+import MessageBox from '@/components/library/message'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -119,11 +119,11 @@ export default {
       // 验证手机号是否 为空
       const valid = mySchema.mobile(form.mobile)
       if (valid !== true) {
-        messageBox({ type: 'warn', text: valid })
+        MessageBox({ type: 'warn', text: valid })
       } else {
         if (time.value === 0) {
           await getMobileCodeAPI(form.mobile, props.unionId)
-          messageBox({ type: 'success', text: '发送成功' })
+          MessageBox({ type: 'success', text: '发送成功' })
           time.value = 60
           resume()
         }
@@ -155,14 +155,14 @@ export default {
 
             // 登录成功, 合并 购物车
             store.dispatch('cart/mergeCart')
-            messageBox({ type: 'success', text: '登录成功' })
+            MessageBox({ type: 'success', text: '登录成功' })
             router.push(store.state.user.redirectUrl || '/')
           })
           .catch((e) => {
             if (e.response.data.message) {
-              messageBox({ type: 'error', text: e.response.data.message })
+              MessageBox({ type: 'error', text: e.response.data.message })
             } else {
-              messageBox({ type: 'error', text: 'QQ登录失败' })
+              MessageBox({ type: 'error', text: 'QQ登录失败' })
             }
           })
       }

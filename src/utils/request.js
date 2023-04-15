@@ -3,8 +3,8 @@ import store from '../store/index'
 import router from '../router/index'
 
 // 设置请求 根路径
-// 避免有请求不需要经过 axios
-const baseUrl = 'http://pcapi-xiaotuxian-front-devtest.itheima.net'
+// 避免有请求不需要经过 axios， 所以在 axios 实例外声明
+export const baseUrl = 'http://pcapi-xiaotuxian-front-devtest.itheima.net'
 const instance = axios.create({
   baseURL: baseUrl,
   timeout: 5000

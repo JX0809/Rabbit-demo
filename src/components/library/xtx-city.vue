@@ -1,8 +1,8 @@
 <template>
   <div class="xtx_city_container" ref="target">
     <div class="select" @click="toggleDialog" :class="{ active: visible }">
-      <span class="placeholder">{{ fullLocation }}</span>
-      <span class="value"></span>
+      <span class="placeholder" v-if="!fullLocation">{{ placeholder }}</span>
+      <span class="value" v-if="fullLocation">{{ fullLocation }}</span>
       <i class="iconfont icon-xiangxiajiantou"></i>
     </div>
     <div class="option" v-if="visible">
@@ -32,6 +32,10 @@ export default {
     fullLocation: {
       type: String,
       default: null
+    },
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
   setup(props, { emit }) {

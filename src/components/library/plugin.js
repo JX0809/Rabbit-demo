@@ -27,7 +27,7 @@ export default {
       App.component(component.name, component) // 自定义组件名, 被注册的组件
     })
 
-    // 自定义指令
+    // 调用自定义指令 函数
     defineDirective(App)
 
     // 把消息提醒函数 挂载到 vue原型上
@@ -35,7 +35,7 @@ export default {
   }
 }
 
-// 图片懒加载
+// 图片懒加载 函数
 const defineDirective = (App) => {
   App.directive('lazyLoad', {
     mounted(el, binding) {

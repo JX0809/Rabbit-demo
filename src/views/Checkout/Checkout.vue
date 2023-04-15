@@ -12,7 +12,10 @@
         <!-- 收货地址 -->
         <h3 class="box-title">收货地址</h3>
         <div class="box-body">
-          <UserAddress :address="checkoutInfo.userAddresses"></UserAddress>
+          <UserAddress
+            :address="checkoutInfo.userAddresses"
+            @change="getAddressId"
+          ></UserAddress>
         </div>
 
         <!-- 商品信息 -->
@@ -87,7 +90,7 @@
         </div>
         <!-- 提交订单 -->
         <div class="submit">
-          <XtxButton type="primary">提交订单</XtxButton>
+          <XtxButton type="primary" @click="submitOrder">提交订单</XtxButton>
         </div>
       </div>
     </div>
@@ -96,8 +99,10 @@
 
 <script>
 import UserAddress from '@/components/Checkout/UserAddress.vue'
-import { createOrderAPI } from '@/api/checkoutAPI/checkoutAPI'
-import { ref } from 'vue'
+import { createOrderAPI, submitOrderAPI } from '@/api/checkoutAPI/checkoutAPI'
+import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import MessageBox from '@/components/library/message'
 
 export default {
   name: 'Checkout',
@@ -105,14 +110,47 @@ export default {
     UserAddress
   },
   setup() {
-    const checkoutInfo = ref(null)
-    createOrderAPI().then(({ data }) => {
-      console.log(data)
-      checkoutInfo.value = data.result
+    // 定义提交订单 需要的参数
+    const checkoutAPIParams = reactive({
+      goods: null,
+      addressId: null,
+      deliveryTimeType: 1,
+      payType: 1,
+      payChannel: 1,
+      buyerMessage: ''
     })
 
+    // 根据选中的商品生成 订单
+    const checkoutInfo = ref(null)
+    createOrderAPI().then(({ data }) => {
+      checkoutInfo.value = data.result
+
+      checkoutAPIParams.goods = data.result.goods.map((item) => {
+        return {
+          skuId: item.skuId,
+          count: item.count
+        }
+      })
+    })
+
+    const getAddressId = (id) => {
+      checkoutAPIParams.addressId = id
+    }
+
+    const router = useRouter()
+    const submitOrder = () => {
+      submitOrderAPI(checkoutAPIParams).then(({ data }) => {
+        console.log(data)
+        MessageBox({ type: 'success', text: '提交订单成功，请及时支付' })
+        router.push({ path: '/member/pay', query: { orderId: data.result.id } })
+      })
+    }
+
     return {
-      checkoutInfo
+      checkoutInfo,
+      checkoutAPIParams,
+      getAddressId,
+      submitOrder
     }
   }
 }

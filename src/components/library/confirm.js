@@ -18,9 +18,15 @@ export default ({ title, text }) => {
       render(null, div)
       reject(new Error('点击取消'))
     }
-    // 创建虚拟节点
+    // 创建虚拟节点：createVNode(组件， props 属性)
     const vnode = createVNode(XtxConfirm, { title, text, submitCallback, cancelCallback }) // (组件名, 传输的props属性)
     // 渲染虚拟节点到 DOM 容器
     render(vnode, div)
   })
 }
+
+/**
+ * 使用
+ * 1. 导入使用：vue3
+ * 2. 挂载到 原型上， 通过 $confirm 使用： vue2
+ */

@@ -187,7 +187,7 @@ import GoodsRecommend from '@/components/Goods/GoodsRecommend.vue'
 import CartNull from '@/components/Cart/CartNull.vue'
 import CartSku from '@/components/Cart/CartSku.vue'
 import Confirm from '@/components/library/confirm'
-import messageBox from '@/components/library/message'
+import MessageBox from '@/components/library/message'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -211,7 +211,7 @@ export default {
       Confirm({ text: '确认从购物车中删除该商品吗?' })
         .then(() => {
           store.dispatch('cart/deleteGoodsInCart', skuId)
-          messageBox({ type: 'success', text: '删除成功' })
+          MessageBox({ type: 'success', text: '删除成功' })
         })
         .catch((e) => {})
     }
@@ -228,11 +228,11 @@ export default {
         })
           .then(() => {
             store.dispatch('cart/batchDeleteGoodsInCart', isClear)
-            messageBox({ type: 'success', text: '删除成功' })
+            MessageBox({ type: 'success', text: '删除成功' })
           })
           .catch((e) => {})
       } else {
-        messageBox({
+        MessageBox({
           type: 'warn',
           text: `${isClear ? '暂无失效' : '请选择需要删除的'}商品`
         })
@@ -254,7 +254,7 @@ export default {
     // 点击下单
     const goToCheckOut = () => {
       if (store.getters['cart/selectedGoodsList'].length === 0) {
-        return messageBox({ type: 'warn', text: '请选择要下单的商品' })
+        return MessageBox({ type: 'warn', text: '请选择要下单的商品' })
       }
       if (!store.state.user.profile.token) {
         Confirm({ text: '下单结算需要登录，请点击确认前往登录页面' })
