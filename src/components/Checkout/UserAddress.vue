@@ -99,10 +99,6 @@ export default {
     }
     emit('change', showedAddress.value?.id)
 
-    // 处理手机号码隐藏
-    const telStrFn = (tel) => {
-      return tel.substr(0, 3) + '*****' + tel.substr(-3)
-    }
     // 控制切换地址对话框的显示隐藏
     const visibleDialog = ref(false)
     const showAddressDialog = () => {
@@ -182,6 +178,11 @@ export default {
       addBtn
     }
   }
+}
+
+// 处理手机号码隐藏
+export const telStrFn = (tel) => {
+  return tel.substr(0, 3) + '*****' + tel.substr(-3)
 }
 </script>
 

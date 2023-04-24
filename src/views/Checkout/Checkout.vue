@@ -100,8 +100,9 @@
 <script>
 import UserAddress from '@/components/Checkout/UserAddress.vue'
 import { createOrderAPI, submitOrderAPI } from '@/api/checkoutAPI/checkoutAPI'
+import { repurchaseAPI } from '@/api/memberAPI/memberAPI'
 import { ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import MessageBox from '@/components/library/message'
 
 export default {
@@ -120,18 +121,32 @@ export default {
       buyerMessage: ''
     })
 
-    // 根据选中的商品生成 订单
+    //  生成 订单
     const checkoutInfo = ref(null)
-    createOrderAPI().then(({ data }) => {
-      checkoutInfo.value = data.result
-
-      checkoutAPIParams.goods = data.result.goods.map((item) => {
-        return {
-          skuId: item.skuId,
-          count: item.count
-        }
+    // TODO 订单列表的再次购买生成订单
+    //  根据购物车选中的商品 生成订单
+    const route = useRoute()
+    if (route.query.orderId) {
+      repurchaseAPI(route.query.orderId).then(({ data }) => {
+        checkoutInfo.value = data.result
+        checkoutAPIParams.goods = data.result.goods.map((item) => {
+          return {
+            skuId: item.skuId,
+            count: item.count
+          }
+        })
       })
-    })
+    } else {
+      createOrderAPI().then(({ data }) => {
+        checkoutInfo.value = data.result
+        checkoutAPIParams.goods = data.result.goods.map((item) => {
+          return {
+            skuId: item.skuId,
+            count: item.count
+          }
+        })
+      })
+    }
 
     const getAddressId = (id) => {
       checkoutAPIParams.addressId = id

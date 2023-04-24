@@ -1,5 +1,6 @@
 import store from '@/store/index'
 import { createRouter, createWebHashHistory } from 'vue-router'
+// import { h } from 'vue'
 
 // 导入组件
 const Layout = () => import('@/views/Layout.vue')
@@ -14,7 +15,10 @@ const Cart = () => import('@/views/Cart/Cart.vue')
 const Checkout = () => import('@/views/Checkout/Checkout.vue')
 const XtxPayPage = () => import('@/views/Checkout/xtx-pay-page.vue')
 const XtxPayResult = () => import('@/views/Checkout/xtx-pay-result.vue')
-
+const Member = () => import('@/views/Member/Member.vue')
+const UserCenter = () => import('@/views/Member/MemberDetail/UserCenter.vue')
+const Order = () => import('@/views/Member/MemberDetail/Order.vue')
+const OrderDetail = () => import('@/views/Member/MemberDetail/OrderDetail.vue')
 const routes = [
   {
     path: '/',
@@ -27,7 +31,24 @@ const routes = [
       { path: '/cart', component: Cart },
       { path: '/member/checkout', component: Checkout },
       { path: '/member/pay', component: XtxPayPage },
-      { path: '/pay/callback', component: XtxPayResult }
+      { path: '/pay/callback', component: XtxPayResult },
+      {
+        path: '/member',
+        component: Member,
+        children: [
+          { path: '/member', component: UserCenter },
+          { path: '/member/order', component: Order },
+          // vue3.0 需要有嵌套关系才能模糊匹配
+          // {
+          //   path: '/member/order',
+          //   component: { render: () => h(<router-link></router-link>) },
+          //   children: [
+          //     { path: '', component: Order }
+          //   ]
+          // }
+          { path: '/member/order/:id', component: OrderDetail, name: 'orderDetail' }
+        ]
+      }
 
     ]
   },
@@ -47,7 +68,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/member/checkout') {
+  // if (to.path === '/member/checkout') {
+  if (to.path.startsWith('/member')) {
     const token = store.state.user.profile.token
     if (token) {
       next()

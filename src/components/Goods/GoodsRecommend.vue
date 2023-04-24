@@ -25,7 +25,7 @@ export default {
     }
   },
   setup(props) {
-    // 获取商品同类推荐-未传入ID为猜喜欢
+    // 获取商品同类推荐-未传入ID为猜你喜欢
     const sliders = ref([])
     // 获取 同类推荐数据
     getGoodsRecommendAPI(props.goodsInfoId).then(({ data }) => {

@@ -11,8 +11,14 @@
         <li><router-link to="/login">请先登录</router-link></li>
         <li><a href="">免费注册</a></li>
       </template>
-      <li><a href="">我的订单</a></li>
-      <li><a href="">会员中心</a></li>
+      <li>
+        <a href="javascript:;" @click="$router.push('/member/order')"
+          >我的订单</a
+        >
+      </li>
+      <li>
+        <a href="javascript:;" @click="$router.push('/member')">会员中心</a>
+      </li>
       <li><a href="">帮助中心</a></li>
       <li><a href="">关于我们</a></li>
       <li>

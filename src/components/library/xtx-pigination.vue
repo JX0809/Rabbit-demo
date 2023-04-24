@@ -90,7 +90,7 @@ export default {
       { immediate: true }
     )
 
-    // 点击上一页， 下一页, 点击页码
+    // 点击上一页， 下一页, 点击页码: val:当前的页码数
     const changePages = (val) => {
       if (currPage.value !== val) {
         currPage.value = val

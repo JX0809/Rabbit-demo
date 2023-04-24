@@ -7,7 +7,7 @@ export default {
     // render(){} 在 vue2 是 一个 选项式API
     // 获取默认插槽内容 x-bread-item
     // 不是在 vue3 组件 setup()里， 可以使用 vue2 的 this
-    const items = this.$slots.default()
+    const items = this.$slots.default() // items 就是 xtx-bread-item
     // 生成动态结构
     const dynamicItems = []
     items.forEach((item, i) => {
@@ -16,7 +16,7 @@ export default {
         dynamicItems.push(h('i', { class: 'iconfont icon-arrow-right' }))
       }
     })
-    return h('div', { class: 'xtx_bread' }, dynamicItems)
+    return h('div', { class: 'xtx_bread' }, dynamicItems) // bread组件根容器，类名，子节点
   }
 }
 </script>

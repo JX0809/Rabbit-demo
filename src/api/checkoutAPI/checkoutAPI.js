@@ -1,6 +1,6 @@
 import instance from '@/utils/request'
 
-// 生成订单
+// 生成订单--根据购物车商品
 export const createOrderAPI = () => {
   return instance.get('/member/order/pre')
 }

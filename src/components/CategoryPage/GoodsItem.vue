@@ -1,10 +1,23 @@
 <template>
-  <RouterLink :to="`/product/${itemGoods.id}`" class="goods-item">
-    <img :src="itemGoods.picture" />
-    <p class="name ellipsis">{{ itemGoods.name }}</p>
-    <p class="desc ellipsis">{{ itemGoods.desc }}</p>
-    <p class="price">&yen;{{ itemGoods.price }}</p>
-  </RouterLink>
+  <template v-if="itemGoods && itemGoods.spu">
+    <!-- 我的足迹 -->
+    <RouterLink :to="`/product/${itemGoods.spu.id}`" class="goods-item">
+      <img :src="itemGoods.spu.picture" />
+      <p class="name ellipsis">{{ itemGoods.spu.name }}</p>
+      <p class="desc ellipsis">{{ itemGoods.spu.desc }}</p>
+      <p class="price">&yen;{{ itemGoods.spu.price }}</p>
+    </RouterLink>
+  </template>
+
+  <!-- 商品items 或我的收藏items -->
+  <template v-else>
+    <RouterLink :to="`/product/${itemGoods.id}`" class="goods-item">
+      <img :src="itemGoods.picture" />
+      <p class="name ellipsis">{{ itemGoods.name }}</p>
+      <p class="desc ellipsis">{{ itemGoods.desc }}</p>
+      <p class="price">&yen;{{ itemGoods.price }}</p>
+    </RouterLink>
+  </template>
 </template>
 
 <script>
