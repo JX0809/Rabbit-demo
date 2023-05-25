@@ -204,7 +204,6 @@ export default {
       const localCartList = context.getters.validGoodsList.map(({ skuId, selected, count }) => {
         return { skuId, selected, count }
       })
-      console.log(localCartList)
       // 请求接口合并本地和线上购物车， 最新的列表存储在线上
       await mergeCartAPI(localCartList) // await 代表请求成功
       console.log(22)

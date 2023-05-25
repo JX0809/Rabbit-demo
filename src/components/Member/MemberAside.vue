@@ -10,9 +10,13 @@ rt
         <a href="javascript:;">消息通知</a>
         <a href="javascript:;">个人信息</a>
         <a href="javascript:;">安全设置</a>
-        <a href="javascript:;">地址管理</a>
+        <router-link to="/member/address" exact-active-class="active"
+          >地址管理</router-link
+        >
         <a href="javascript:;">我的积分</a>
-        <a href="javascript:;">我的足迹</a>
+        <router-link to="/member/footprint" exact-active-class="active"
+          >我的足迹</router-link
+        >
         <a href="javascript:;">邀请有礼</a>
         <a href="javascript:;">幸运抽奖</a>
       </div>

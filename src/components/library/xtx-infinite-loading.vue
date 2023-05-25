@@ -32,12 +32,14 @@ export default {
     }
   },
   setup(props, { emit }) {
+    console.log(11)
     // 进入loading组件可视区， 自定义事件通知父组件请求数据，渲染页面
     const container = ref(null)
     useIntersectionObserver(
       container,
       ([{ isIntersecting }], dom) => {
         if (isIntersecting) {
+          // 进入可视区， 当loading 和 finished 为false 时， 才会触发自定义事件
           if (props.loading === false && props.finished === false) {
             emit('infinite')
           }

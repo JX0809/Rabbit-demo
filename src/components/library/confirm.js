@@ -1,7 +1,7 @@
 import XtxConfirm from '@/components/library/xtx-confirm'
 import { createVNode, render } from 'vue'
 
-// 创建,添加 DOM 容器, 添加属性
+// 创建,添加 DOM 容器, 添加 类 属性
 const div = document.createElement('div')
 div.setAttribute('class', 'xtx_confirm_box')
 document.body.appendChild(div)

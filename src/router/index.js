@@ -19,6 +19,10 @@ const Member = () => import('@/views/Member/Member.vue')
 const UserCenter = () => import('@/views/Member/MemberDetail/UserCenter.vue')
 const Order = () => import('@/views/Member/MemberDetail/Order.vue')
 const OrderDetail = () => import('@/views/Member/MemberDetail/OrderDetail.vue')
+const Footprint = () => import('@/views/Member/MemberDetail/FootPrint.vue')
+const AddressManage = () => import('@/views/Member/MemberDetail/AddressManage.vue')
+const Register = () => import('@/views/Login/Register.vue')
+
 const routes = [
   {
     path: '/',
@@ -46,9 +50,12 @@ const routes = [
           //     { path: '', component: Order }
           //   ]
           // }
-          { path: '/member/order/:id', component: OrderDetail, name: 'orderDetail' }
+          { path: '/member/order/:id', component: OrderDetail, name: 'orderDetail' },
+          { path: '/member/footprint', component: Footprint },
+          { path: '/member/address', component: AddressManage }
         ]
-      }
+      },
+      { path: '/register', component: Register }
 
     ]
   },

@@ -15,6 +15,7 @@
             >
               <router-link to="/">
                 <!-- <img :src="item.cover" alt="" /> -->
+                <!-- 图片懒加载 -->
                 <img v-lazyLoad="item.cover" alt="" />
                 <div class="meta">
                   <p class="title">

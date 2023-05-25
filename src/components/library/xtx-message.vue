@@ -58,7 +58,7 @@ export default {
 
 <style lang="less" scoped>
 .xtx-message {
-  width: 300px;
+  width: 350px;
   height: 50px;
   position: fixed;
   z-index: 9999;

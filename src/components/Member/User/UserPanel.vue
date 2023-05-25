@@ -2,9 +2,10 @@
   <div class="user_panel_container">
     <div class="panel_header">
       <h4>{{ title }}</h4>
-      <!-- 查看更多组件 -->
-      <XtxMore></XtxMore>
+      <!-- 具名插槽 占位 查看更多组件 -->
+      <slot name="more"></slot>
     </div>
+
     <div class="panel_body">
       <!-- 主体内容 -->
       <slot></slot>
@@ -39,11 +40,12 @@ export default {
     h4 {
       font-size: 22px;
       color: #333;
+      font-weight: 400;
     }
   }
   .panel_body {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     padding: 20px 0;
   }

@@ -43,23 +43,28 @@ instance.interceptors.response.use(
     }
     return Promise.reject(error)
   })
-// 1. 直接导出instance 实例
-export default instance
-// 使用
-// export const getAllCategoryListAPI = () => {
-//   return instance.get('/home/category/head')
-// }
 
-// //2.  导出 请求工具函数的写法
-// export default (url, method, submitData) => {
-//   return instance({
-//     url,
-//     method,
-//     [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
-//   })
-// }
-// 使用
-// import request from '@、xx/xxx'
-// export const xxx = () => {
-//   return request('url', 'get', 'data')
-// }
+/**
+ * 1. 直接导出instance 实例
+ *  export const getAllCategoryListAPI = () => {
+ *  return instance.get('/home/category/head')
+ * }
+ */
+export default instance
+
+/**
+ * 2.  导出 请求工具函数的写法
+ * export default (url, method, submitData) => {
+  return instance({
+    url,
+    method,
+    [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
+  })
+}
+使用
+import request from '@、xx/xxx'
+export const xxx = () => {
+  return request('url', 'get', 'data')
+}
+
+ */

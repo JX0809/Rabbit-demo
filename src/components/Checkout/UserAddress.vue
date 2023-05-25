@@ -172,10 +172,10 @@ export default {
       addressList,
       selectedAdd,
       submitChangeAdd,
-      openEditAddressDialog,
       showEditComponent,
       addAddress,
-      addBtn
+      addBtn,
+      openEditAddressDialog
     }
   }
 }

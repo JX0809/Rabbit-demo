@@ -1,6 +1,6 @@
 <template>
   <div class="xtx_more_container">
-    <router-link to="/">
+    <router-link :to="to">
       <span>
         {{ title }}
         <i class="iconfont icon-arrow-right"></i>
@@ -16,6 +16,10 @@ export default {
     title: {
       type: String,
       default: '查看全部'
+    },
+    to: {
+      type: [String, Object],
+      default: ''
     }
   },
   setup() {}

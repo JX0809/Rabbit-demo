@@ -2,15 +2,20 @@
   <div class="login_form">
     <!-- 账户登录 -->
     <div class="form_toggle">
-      <a href="javascript:;" @click="isMsgLogin = false" v-if="isMsgLogin">
+      <a
+        href="javascript:;"
+        v-if="isMsgLogin === true"
+        @click="isMsgLogin = false"
+      >
         <i class="iconfont icon-email"></i>
         <span> 使用短信登录</span>
       </a>
-      <a href="javascript:;" @click="isMsgLogin = true" v-if="!isMsgLogin">
+      <a href="javascript:;" v-else @click="isMsgLogin = true">
         <i class="iconfont icon-jurassic_user"></i>
         <span> 使用账号登录</span>
       </a>
     </div>
+
     <!-- 表单区域 -->
     <!-- 接受校验规则 -->
     <Form
@@ -19,8 +24,8 @@
       :validation-schema="mySchema"
       v-slot="{ errors }"
     >
-      <!-- 账号登录 -->
       <template v-if="isMsgLogin === true">
+        <!-- 账号登录 -->
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-jurassic_user"></i>
@@ -36,7 +41,7 @@
           </div>
         </div>
         <!-- 校验失败提示 -->
-        <div class="error" v-if="errors.account">{{ errors.account }}</div>
+        <div class="error-Info" v-if="errors.account">{{ errors.account }}</div>
 
         <div class="form-item">
           <div class="input">
@@ -50,13 +55,14 @@
             />
           </div>
         </div>
-
         <!-- 校验失败提示 -->
-        <div class="error" v-if="errors.password">{{ errors.password }}</div>
+        <div class="error-Info" v-if="errors.password">
+          {{ errors.password }}
+        </div>
       </template>
-      <!-- <XtxMessage type="success" text="成功"></XtxMessage> -->
 
       <!-- 手机号码登录 -->
+      <!-- name 对应验证规则的password 规则 -->
       <template v-if="isMsgLogin === false">
         <div class="form-item">
           <div class="input">
@@ -73,7 +79,7 @@
         </div>
 
         <!-- 校验失败提示 -->
-        <div class="error" v-if="errors.mobile">{{ errors.mobile }}</div>
+        <div class="error-Info" v-if="errors.mobile">{{ errors.mobile }}</div>
 
         <div class="form-item">
           <div class="input">
@@ -92,7 +98,7 @@
         </div>
 
         <!-- 校验失败提示 -->
-        <div class="error" v-if="errors.code">{{ errors.code }}</div>
+        <div class="error-Info" v-if="errors.code">{{ errors.code }}</div>
       </template>
 
       <!-- 隐私条款 -->
@@ -106,32 +112,17 @@
           <a href="javascript:;">《服务条款》</a>
         </div>
       </div>
+      <div class="error-Info" v-if="errors.isAgree">{{ errors.isAgree }}</div>
 
       <!-- 登录按钮 -->
       <a href="javascript:;" class="btn" @click="login">登录</a>
     </Form>
-
-    <!-- QQ 登录 -->
-    <div class="action">
-      <a
-        href="https://graph.qq.com/oauth2.0/authorize?client_id=100556005&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fwww.corho.com%3A8080%2F%23%2Flogin%2Fcallback"
-      >
-        <img
-          src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_7.png"
-          alt=""
-        />
-      </a>
-      <div class="url">
-        <a href="javascript:;">忘记密码</a>
-        <a href="javascript:;">免费注册</a>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import { reactive, ref, toRefs, watch, onMounted, onUnmounted } from 'vue'
-// 导入验证
+import { reactive, ref, toRefs, watch, onUnmounted } from 'vue'
+// 导入验证规则
 import veeSchema from '@/utils/vee-validate-schemas'
 import { Form, Field } from 'vee-validate'
 
@@ -145,7 +136,6 @@ import { useRouter } from 'vue-router'
 
 import MessageBox from '@/components/library/message'
 import { useIntervalFn } from '@vueuse/core'
-import QC from 'qc'
 
 export default {
   name: 'LoginForm',
@@ -190,7 +180,6 @@ export default {
     // 点击登录， 对整个表单进行验证
     const store = useStore()
     const router = useRouter()
-    // const route = useRoute()
 
     // 定义 短信验证码定时器
     const time = ref(0)
@@ -206,14 +195,7 @@ export default {
       false // 是否立刻开启
     )
 
-    // 组件渲染完毕，使用QC生成QQ登录按钮
-    onMounted(() => {
-      QC.Login({
-        btnId: 'qqLoginBtn'
-      })
-    })
-
-    // 组件销毁时停止定时器
+    // 组件销毁时停止 发送短信的 定时器
     onUnmounted(() => {
       pause()
     })
@@ -223,7 +205,7 @@ export default {
       // 验证手机号是否为空
       const valid = mySchema.mobile(loginData.mobile)
       if (valid !== true) {
-        MessageBox({ type: 'warn', text: '发送验证码失败' })
+        MessageBox({ type: 'warn', text: '发送验证码失败，请检查手机号码格式' })
       } else {
         if (time.value === 0) {
           await getLoginCodeAPI(loginData.mobile)
@@ -355,16 +337,10 @@ export default {
           cursor: pointer;
         }
       }
-      > .error {
-        position: absolute;
-        font-size: 12px;
-        line-height: 28px;
-        color: @priceColor;
-        i {
-          font-size: 14px;
-          margin-right: 2px;
-        }
-      }
+    }
+    > .error-Info {
+      font-size: 12px;
+      color: @priceColor;
     }
     .agree {
       a {
@@ -375,24 +351,13 @@ export default {
       display: block;
       width: 100%;
       height: 40px;
+      margin-top: 20px;
       color: #fff;
       text-align: center;
       line-height: 40px;
       background: @xtxColor;
       &.disabled {
         background: #cfcdcd;
-      }
-    }
-  }
-  .action {
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .url {
-      a {
-        color: #999;
-        margin-left: 10px;
       }
     }
   }

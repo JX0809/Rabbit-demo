@@ -85,5 +85,14 @@ export default {
     width: 100%;
     height: 380px;
   }
+
+  /deep/.carousel_pre_btn {
+    top: 140px;
+    left: 5px;
+  }
+  /deep/.carousel_next_btn {
+    top: 140px;
+    right: 5px;
+  }
 }
 </style>

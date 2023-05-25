@@ -23,15 +23,33 @@
             >扫码登录</a
           >
         </div>
-        <!-- 表单 -->
+
+        <!-- 账户登录的 表单 组件-->
         <div class="account-box" v-if="loginWay === 'account'">
           <LoginForm></LoginForm>
         </div>
 
-        <!-- 二维码 -->
+        <!-- 扫码登录的二维码 -->
         <div class="qrcode-box" v-if="loginWay === 'qrCode'">
           <img src="@/assets/images/qrcode.jpg" alt="" />
           <p>打开 <a href="javascript:;">小兔鲜App</a> 扫码登录</p>
+        </div>
+
+        <!-- QQ登录 -->
+        <div class="action">
+          <!-- <a
+            href="https://graph.qq.com/oauth2.0/authorize?client_id=100556005&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fwww.corho.com%3A8080%2F%23%2Flogin%2Fcallback"
+          >
+            <img
+              src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_7.png"
+              alt=""
+            />
+          </a> -->
+
+          <div class="url" v-if="loginWay === 'account'">
+            <a href="javascript:;">忘记密码</a>
+            <router-link to="/register">免费注册</router-link>
+          </div>
         </div>
       </div>
     </section>
@@ -48,6 +66,7 @@ import LoginFooter from '@/components/Login/LoginFooter.vue'
 import LoginForm from '@/components/Login/LoginForm.vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+// import QC from 'qc'
 
 export default {
   name: 'Login',
@@ -58,13 +77,22 @@ export default {
   },
   setup() {
     const loginWay = ref('account')
+
     const store = useStore()
     const route = useRoute()
-
     // 保存访问未遂的网址
     store.commit('user/setRedirectUrl', route.query.pre)
 
-    return { loginWay }
+    // 组件渲染完毕，使用QC生成QQ登录按钮
+    // onMounted(() => {
+    //   QC.Login({
+    //     btnId: 'qqLoginBtn'
+    //   })
+    // })
+
+    return {
+      loginWay
+    }
   }
 }
 </script>
@@ -118,7 +146,18 @@ export default {
         height: 100%;
       }
     }
-
+    .action {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .url {
+        a {
+          color: #999;
+          margin-left: 10px;
+        }
+      }
+    }
     .qrcode-box {
       text-align: center;
       padding-top: 40px;

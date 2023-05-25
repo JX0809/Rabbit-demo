@@ -180,6 +180,8 @@ export default {
             // 登录成功, 合并 购物车
             store.dispatch('cart/mergeCart')
             MessageBox({ type: 'success', text: 'QQ绑定成功' })
+
+            // 绑定成功后就是登录的状态
             router.push(store.state.user.redirectUrl || '/')
           })
           .catch(({ e }) => {

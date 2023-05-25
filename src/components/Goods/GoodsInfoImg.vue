@@ -128,7 +128,7 @@ const usePreviewingImg = () => {
     position: absolute;
     top: 0;
     left: 412px;
-    z-index: 100;
+    z-index: 999;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-repeat: no-repeat;
     background-position: center;

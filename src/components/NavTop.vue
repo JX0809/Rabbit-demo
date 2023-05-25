@@ -3,13 +3,16 @@
     <ul>
       <template v-if="profile.token">
         <li>
-          <a href="#">{{ $store.state.user.profile.nickname }}</a>
+          <a href="#">{{
+            $store.state.user.profile.nickname ||
+            $store.state.user.profile.account
+          }}</a>
         </li>
         <li><a href="javascript:;" @click="logout">退出登录</a></li>
       </template>
       <template v-else>
         <li><router-link to="/login">请先登录</router-link></li>
-        <li><a href="">免费注册</a></li>
+        <li><router-link to="/register">免费注册</router-link></li>
       </template>
       <li>
         <a href="javascript:;" @click="$router.push('/member/order')"

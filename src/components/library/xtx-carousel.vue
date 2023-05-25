@@ -14,7 +14,7 @@
           <img :src="item.imgUrl" alt="" />
         </router-link>
 
-        <!-- 渲染商品详情轮播图 -->
+        <!-- 渲染商品详情--猜你喜欢轮播图 -->
         <div class="sliders" v-else>
           <router-link
             :to="`/product/${goods.id}`"
@@ -254,15 +254,6 @@ export default {
     .carousel_btn {
       opacity: 1;
     }
-  }
-
-  /deep/.carousel_pre_btn {
-    top: 140px;
-    left: 5px;
-  }
-  /deep/.carousel_next_btn {
-    top: 140px;
-    right: 5px;
   }
 }
 </style>

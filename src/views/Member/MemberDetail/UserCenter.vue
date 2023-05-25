@@ -5,6 +5,10 @@
 
     <!-- 面板组件--我的足迹，我的收藏 -->
     <UserPanel title="我的收藏" v-if="collectList">
+      <!-- 具名插槽查看更多组件 -->
+      <template v-slot:more>
+        <XtxMore></XtxMore>
+      </template>
       <GoodsItem
         v-for="item in collectList.items"
         :key="item.id"
@@ -13,6 +17,10 @@
     </UserPanel>
 
     <UserPanel title="我的足迹" v-if="historyList">
+      <!-- 具名插槽查看更多组件 -->
+      <template v-slot:more>
+        <XtxMore to="/member/footprint"></XtxMore>
+      </template>
       <GoodsItem
         v-for="item in historyList.items"
         :key="item.id"

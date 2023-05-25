@@ -59,3 +59,8 @@ export const QQRegisterLoginAPI = (id, obj) => {
     password: obj.password
   })
 }
+
+// 新用户注册（普通)
+export const registerAPI = (obj) => {
+  return instance.post('/register', obj)
+}

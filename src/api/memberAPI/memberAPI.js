@@ -66,3 +66,44 @@ export const getOrderDetailAPI = (id) => {
 export const repurchaseAPI = (id) => {
   return instance.get(`/member/order/repurchase/${id}`)
 }
+
+/**
+ * 删除我的足迹
+ * @param {Array} ids: id集合
+ * @returns
+ */
+export const deleteFootPrintAPI = (ids) => {
+  return instance.delete('/member/browseHistory/batch', { data: { ids } })
+}
+
+// 获取所有收货地址
+export const getAddressListAPI = () => {
+  return instance.get('/member/address')
+}
+
+// 更新收货地址--设置默认地址
+// export const updateAddressAPI = (item) => {
+//   return instance.put(`/member/address/${item.id}`, {
+//     receiver: item.receiver,
+//     contact: item.contact,
+//     provinceCode: item.provinceCode,
+//     cityCode: item.cityCode,
+//     countyCode: item.countyCode,
+//     address: item.address,
+//     postalCode: item.postalCode,
+//     addressTags: item.address,
+//     isDefault: 0
+//   })
+// }
+
+// 更新地址--设置默认地址
+export const updateAddressAPI = (item) => {
+  return instance.put(`/member/address/${item.id}`,
+    item
+  )
+}
+
+// 删除地址
+export const deleteAddressAPI = (id) => {
+  return instance.delete(`/member/address/${id}`)
+}
