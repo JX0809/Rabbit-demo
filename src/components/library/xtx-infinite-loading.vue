@@ -32,7 +32,6 @@ export default {
     }
   },
   setup(props, { emit }) {
-    console.log(11)
     // 进入loading组件可视区， 自定义事件通知父组件请求数据，渲染页面
     const container = ref(null)
     useIntersectionObserver(

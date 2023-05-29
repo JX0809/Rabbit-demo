@@ -3,7 +3,7 @@ import { ref, onUnmounted } from 'vue'
 import dayjs from 'dayjs'
 
 // 数据懒加载
-export const useLazyLoadData = (apiFn, target) => {
+export const useLazyLoadData = (apiFn, target) => { // 可以直接传入target实参， 也可以在加载函数中声明target，return给组件使用
   // 存放请求回来的数据
   const result = ref([])
   // useIntersectionObserver 有 3个参数：懒加载的target, 处理函数， 触发懒加载的临界值
@@ -34,7 +34,7 @@ export const usePayTimeCountdown = () => {
   const timeTxt = ref('')
 
   // 定义定时器
-  const { resume, pause } = useIntervalFn(
+  const { resume, pause } = useIntervalFn( // callback, 间隔时间， 是否立即开启
     () => {
       time.value--
       timeTxt.value = dayjs.unix(time.value).format('mm分ss秒')

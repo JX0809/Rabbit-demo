@@ -32,7 +32,7 @@ export default {
     checkLogisticsAPI(props.order.id).then(({ data }) => {
       logistics.value = data.result
     })
-
+    // ...useCheckLogistics() === const { checkLogisticsCom, checkLogistic} = useCheckLogistics()
     return { logistics, ...useCheckLogistics() }
   }
 }

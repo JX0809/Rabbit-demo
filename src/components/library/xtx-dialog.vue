@@ -35,6 +35,7 @@ export default {
     }
   },
   setup(props, { emit }) {
+    // 父组件 利用 v-model 双向数据绑定 修改 show 的值
     const show = ref(false)
     watch(
       () => props.visible,
@@ -49,6 +50,7 @@ export default {
     )
     const closeDialog = () => {
       show.value = false
+      // 双向数据绑定 修改父组件的值
       emit('update:visible', false)
     }
 
@@ -77,7 +79,7 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
-    opacity: 1;
+    opacity: 0; //1 还是0
     background-color: #fff;
     z-index: 400;
     &.fade {

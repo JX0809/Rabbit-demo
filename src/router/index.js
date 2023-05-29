@@ -21,6 +21,7 @@ const Order = () => import('@/views/Member/MemberDetail/Order.vue')
 const OrderDetail = () => import('@/views/Member/MemberDetail/OrderDetail.vue')
 const Footprint = () => import('@/views/Member/MemberDetail/FootPrint.vue')
 const AddressManage = () => import('@/views/Member/MemberDetail/AddressManage.vue')
+const UserProfile = () => import('@/views/Member/MemberDetail/UserProfile.vue')
 const Register = () => import('@/views/Login/Register.vue')
 
 const routes = [
@@ -36,6 +37,7 @@ const routes = [
       { path: '/member/checkout', component: Checkout },
       { path: '/member/pay', component: XtxPayPage },
       { path: '/pay/callback', component: XtxPayResult },
+      // 用户中心
       {
         path: '/member',
         component: Member,
@@ -52,7 +54,8 @@ const routes = [
           // }
           { path: '/member/order/:id', component: OrderDetail, name: 'orderDetail' },
           { path: '/member/footprint', component: Footprint },
-          { path: '/member/address', component: AddressManage }
+          { path: '/member/address', component: AddressManage },
+          { path: '/member/profile', component: UserProfile }
         ]
       },
       { path: '/register', component: Register }

@@ -107,3 +107,10 @@ export const updateAddressAPI = (item) => {
 export const deleteAddressAPI = (id) => {
   return instance.delete(`/member/address/${id}`)
 }
+
+/**
+ * 用户中心--获取个人信息
+ */
+export const getUserInfoAPI = (obj) => {
+  return instance.get('/member/profile', { params: obj })
+}

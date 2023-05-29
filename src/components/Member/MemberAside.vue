@@ -8,7 +8,7 @@ rt
           >个人中心</router-link
         >
         <a href="javascript:;">消息通知</a>
-        <a href="javascript:;">个人信息</a>
+        <router-link to="/member/profile">个人信息</router-link>
         <a href="javascript:;">安全设置</a>
         <router-link to="/member/address" exact-active-class="active"
           >地址管理</router-link

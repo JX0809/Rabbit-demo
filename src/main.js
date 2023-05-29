@@ -10,6 +10,4 @@ import '@/assets/styles/common.less'
 // 导入全局插件
 import plugin from '@/components/library/plugin.js'
 
-// 全局前置路由守卫beforeEach
-
 createApp(App).use(store).use(router).use(plugin).mount('#app')
